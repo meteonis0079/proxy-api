@@ -1,0 +1,372 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: AI Proxy Portal API - Manages Vercel API keys and proxies AI model requests
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: keys
+    description: Vercel API key management
+  - name: usage
+    description: Usage statistics and tracking
+  - name: proxy
+    description: AI model proxy endpoints
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /keys:
+    get:
+      operationId: listKeys
+      tags: [keys]
+      summary: List all Vercel API keys
+      responses:
+        "200":
+          description: List of keys
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ApiKey"
+    post:
+      operationId: createKey
+      tags: [keys]
+      summary: Add a new Vercel API key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateKeyBody"
+      responses:
+        "201":
+          description: Key created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKey"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /keys/{id}:
+    get:
+      operationId: getKey
+      tags: [keys]
+      summary: Get a specific API key
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Key found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKey"
+        "404":
+          description: Key not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateKey
+      tags: [keys]
+      summary: Update a key (name, enabled status)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateKeyBody"
+      responses:
+        "200":
+          description: Key updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKey"
+        "404":
+          description: Key not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteKey
+      tags: [keys]
+      summary: Delete an API key
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Key deleted
+        "404":
+          description: Key not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /keys/stats:
+    get:
+      operationId: getKeyStats
+      tags: [keys]
+      summary: Get usage stats for all keys (dashboard summary)
+      responses:
+        "200":
+          description: Key statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KeyStats"
+
+  /usage:
+    get:
+      operationId: listUsage
+      tags: [usage]
+      summary: Get usage logs with optional filtering
+      parameters:
+        - name: keyId
+          in: query
+          required: false
+          schema:
+            type: ["integer", "null"]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: ["integer", "null"]
+      responses:
+        "200":
+          description: Usage logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UsageLog"
+
+  /usage/summary:
+    get:
+      operationId: getUsageSummary
+      tags: [usage]
+      summary: Get aggregated usage summary per key
+      responses:
+        "200":
+          description: Usage summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsageSummary"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    ApiKey:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        keyPreview:
+          type: string
+          description: Last 4 characters of the key for identification
+        isEnabled:
+          type: boolean
+        totalRequests:
+          type: integer
+        totalTokens:
+          type: integer
+        estimatedCostUsd:
+          type: number
+        lastUsedAt:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+        - id
+        - name
+        - keyPreview
+        - isEnabled
+        - totalRequests
+        - totalTokens
+        - estimatedCostUsd
+        - lastUsedAt
+        - createdAt
+        - updatedAt
+
+    CreateKeyBody:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Friendly name for the key
+        apiKey:
+          type: string
+          description: The Vercel API key (will be stored securely)
+      required:
+        - name
+        - apiKey
+
+    UpdateKeyBody:
+      type: object
+      properties:
+        name:
+          type: string
+        isEnabled:
+          type: boolean
+
+    KeyStats:
+      type: object
+      properties:
+        totalKeys:
+          type: integer
+        enabledKeys:
+          type: integer
+        totalRequests:
+          type: integer
+        totalTokens:
+          type: integer
+        totalCostUsd:
+          type: number
+        recentActivity:
+          type: array
+          items:
+            $ref: "#/components/schemas/UsageLog"
+      required:
+        - totalKeys
+        - enabledKeys
+        - totalRequests
+        - totalTokens
+        - totalCostUsd
+        - recentActivity
+
+    UsageLog:
+      type: object
+      properties:
+        id:
+          type: integer
+        keyId:
+          type: integer
+        keyName:
+          type: string
+        model:
+          type: string
+        promptTokens:
+          type: integer
+        completionTokens:
+          type: integer
+        totalTokens:
+          type: integer
+        estimatedCostUsd:
+          type: number
+        statusCode:
+          type: integer
+        durationMs:
+          type: integer
+        createdAt:
+          type: string
+      required:
+        - id
+        - keyId
+        - keyName
+        - model
+        - promptTokens
+        - completionTokens
+        - totalTokens
+        - estimatedCostUsd
+        - statusCode
+        - durationMs
+        - createdAt
+
+    UsageSummary:
+      type: object
+      properties:
+        byKey:
+          type: array
+          items:
+            $ref: "#/components/schemas/KeyUsageSummary"
+        totalRequests:
+          type: integer
+        totalCostUsd:
+          type: number
+      required:
+        - byKey
+        - totalRequests
+        - totalCostUsd
+
+    KeyUsageSummary:
+      type: object
+      properties:
+        keyId:
+          type: integer
+        keyName:
+          type: string
+        requests:
+          type: integer
+        tokens:
+          type: integer
+        costUsd:
+          type: number
+        successRate:
+          type: number
+      required:
+        - keyId
+        - keyName
+        - requests
+        - tokens
+        - costUsd
+        - successRate
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
