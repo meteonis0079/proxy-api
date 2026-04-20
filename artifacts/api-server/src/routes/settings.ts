@@ -60,4 +60,26 @@ router.post("/settings/keepalive/ping", async (_req, res): Promise<void> => {
   res.json(result);
 });
 
+router.get("/settings/blocked-providers", async (_req, res): Promise<void> => {
+  const raw = await getSetting("blocked_providers");
+  const providers = raw ? raw.split(",").map(s => s.trim()).filter(Boolean) : [];
+  res.json({ providers });
+});
+
+router.put("/settings/blocked-providers", async (req, res): Promise<void> => {
+  const { providers } = req.body as { providers?: string[] };
+  if (!Array.isArray(providers)) {
+    res.status(400).json({ error: "providers 必须是数组" });
+    return;
+  }
+  const value = providers.map(s => s.trim()).filter(Boolean).join(",");
+  await setSetting("blocked_providers", value);
+  res.json({ providers: value ? value.split(",") : [] });
+});
+
+export async function getBlockedProviders(): Promise<string[]> {
+  const raw = await getSetting("blocked_providers");
+  return raw ? raw.split(",").map(s => s.trim()).filter(Boolean) : [];
+}
+
 export default router;

@@ -32,6 +32,7 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 app.use("/api", router);
 
+
 if (process.env.NODE_ENV === "production") {
   const frontendDist = path.resolve(process.cwd(), "artifacts/ai-proxy-portal/dist/public");
   logger.info({ frontendDist }, "Serving frontend static files");

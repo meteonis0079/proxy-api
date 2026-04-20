@@ -3,6 +3,7 @@ import { eq, sql } from "drizzle-orm";
 import { db, apiKeysTable, usageLogsTable } from "@workspace/db";
 import { logger } from "../lib/logger";
 import { getCurrentPassword } from "../lib/currentPassword";
+import { getBlockedProviders } from "./settings";
 
 const router: IRouter = Router();
 
@@ -338,6 +339,25 @@ router.post("/v1/embeddings", requireProxyApiKey, async (req, res): Promise<void
 
 router.post("/v1/chat/completions", requireProxyApiKey, async (req, res): Promise<void> => {
   const start = Date.now();
+  const model = req.body?.model ?? "openai/gpt-4o-mini";
+
+  const blocked = await getBlockedProviders();
+  const blockedLower = blocked.map(b => b.toLowerCase());
+  const catalogEntry = MODEL_CATALOG.find(m => m.id === model);
+  if (catalogEntry && (
+    blockedLower.includes(catalogEntry.provider.toLowerCase()) ||
+    blockedLower.includes(catalogEntry.providerLabel.toLowerCase())
+  )) {
+    res.status(403).json({
+      error: {
+        message: `模型 "${model}" 的供应商 "${catalogEntry.providerLabel}" 已被屏蔽`,
+        type: "invalid_request_error",
+        code: "provider_blocked",
+      },
+    });
+    return;
+  }
+
   const key = await getNextKey();
 
   if (!key) {
@@ -345,10 +365,16 @@ router.post("/v1/chat/completions", requireProxyApiKey, async (req, res): Promis
     return;
   }
 
-  const model = req.body?.model ?? "openai/gpt-4o-mini";
   const baseUrl = getProviderBaseUrl(key.provider);
 
+  // Build infra-skip headers for Vercel gateway
+  const INFRA_PROVIDERS = ["deepinfra", "together", "fireworks"];
+  const blockedInfra = blockedLower.filter(b => INFRA_PROVIDERS.includes(b));
   const extraHeaders: Record<string, string> = {};
+  if (blockedInfra.length > 0) {
+    extraHeaders["x-vercel-ai-skip-providers"] = blockedInfra.join(",");
+    extraHeaders["x-ai-skip-providers"] = blockedInfra.join(",");
+  }
 
   try {
     const response = await fetch(`${baseUrl}/chat/completions`, {
@@ -360,6 +386,26 @@ router.post("/v1/chat/completions", requireProxyApiKey, async (req, res): Promis
       },
       body: JSON.stringify(req.body),
     });
+
+    // Check if Vercel used a blocked infra provider
+    if (blockedInfra.length > 0) {
+      const usedProvider = (
+        response.headers.get("x-vercel-ai-gateway-provider") ??
+        response.headers.get("x-ai-provider") ??
+        response.headers.get("x-provider") ??
+        ""
+      ).toLowerCase();
+      if (usedProvider && blockedInfra.some(b => usedProvider.includes(b))) {
+        res.status(403).json({
+          error: {
+            message: `请求被代理拒绝：Vercel 将此次调用路由到了已屏蔽的基础设施商 "${usedProvider}"`,
+            type: "invalid_request_error",
+            code: "infra_provider_blocked",
+          },
+        });
+        return;
+      }
+    }
 
     const statusCode = response.status;
     const contentType = response.headers.get("content-type") ?? "";
@@ -489,9 +535,17 @@ router.post("/v1/chat/completions", requireProxyApiKey, async (req, res): Promis
 
 router.get("/v1/models", requireProxyApiKey, async (_req, res): Promise<void> => {
   const now = Math.floor(Date.now() / 1000);
+  const blocked = await getBlockedProviders();
+  const blockedLower = blocked.map(b => b.toLowerCase());
+
+  const filtered = MODEL_CATALOG.filter(m =>
+    !blockedLower.includes(m.provider.toLowerCase()) &&
+    !blockedLower.includes(m.providerLabel.toLowerCase())
+  );
+
   res.json({
     object: "list",
-    data: MODEL_CATALOG.map((m) => ({
+    data: filtered.map((m) => ({
       id: m.id,
       object: "model",
       created: now,
@@ -501,7 +555,13 @@ router.get("/v1/models", requireProxyApiKey, async (_req, res): Promise<void> =>
 });
 
 router.get("/v1/models/catalog", requireProxyApiKey, async (_req, res): Promise<void> => {
-  res.json({ models: MODEL_CATALOG });
+  const blocked = await getBlockedProviders();
+  const blockedLower = blocked.map(b => b.toLowerCase());
+  const filtered = MODEL_CATALOG.filter(m =>
+    !blockedLower.includes(m.provider.toLowerCase()) &&
+    !blockedLower.includes(m.providerLabel.toLowerCase())
+  );
+  res.json({ models: filtered });
 });
 
 export default router;

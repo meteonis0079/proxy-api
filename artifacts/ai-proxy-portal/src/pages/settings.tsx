@@ -6,9 +6,39 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/use-auth";
 import {
   CheckCircle2, XCircle, Loader2, Send, Clock, RefreshCw, Wifi, WifiOff,
-  ShieldCheck, KeyRound,
+  ShieldCheck, KeyRound, Ban, X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const ALL_PROVIDERS = [
+  // ── Vercel 渠道基础设施（不是模型供应商，而是 Vercel 内部路由的基础设施商）
+  { key: "deepinfra", label: "DeepInfra", isInfra: true },
+  { key: "together", label: "Together AI", isInfra: true },
+  { key: "fireworks", label: "Fireworks AI", isInfra: true },
+  // ── 模型供应商
+  { key: "openai", label: "OpenAI", isInfra: false },
+  { key: "anthropic", label: "Anthropic", isInfra: false },
+  { key: "google", label: "Google", isInfra: false },
+  { key: "meta", label: "Meta", isInfra: false },
+  { key: "mistral", label: "Mistral", isInfra: false },
+  { key: "xai", label: "xAI", isInfra: false },
+  { key: "deepseek", label: "DeepSeek", isInfra: false },
+  { key: "alibaba", label: "Alibaba", isInfra: false },
+  { key: "amazon", label: "Amazon", isInfra: false },
+  { key: "cohere", label: "Cohere", isInfra: false },
+  { key: "perplexity", label: "Perplexity", isInfra: false },
+  { key: "moonshot", label: "Moonshot AI", isInfra: false },
+  { key: "minimax", label: "MiniMax", isInfra: false },
+  { key: "nvidia", label: "NVIDIA", isInfra: false },
+  { key: "bytedance", label: "ByteDance", isInfra: false },
+  { key: "arcee-ai", label: "Arcee AI", isInfra: false },
+  { key: "zai", label: "ZAI", isInfra: false },
+  { key: "inception", label: "Inception", isInfra: false },
+  { key: "prime-intellect", label: "Prime Intellect", isInfra: false },
+  { key: "xiaomi", label: "Xiaomi", isInfra: false },
+  { key: "meituan", label: "Meituan", isInfra: false },
+  { key: "morph", label: "Morph", isInfra: false },
+];
 
 interface LastPing {
   ok: boolean;
@@ -51,9 +81,46 @@ export default function Settings() {
   const [pwdError, setPwdError] = useState("");
   const [changingPwd, setChangingPwd] = useState(false);
 
+  const [blockedProviders, setBlockedProviders] = useState<string[]>([]);
+  const [savingBlocked, setSavingBlocked] = useState(false);
+
   useEffect(() => {
     loadConfig();
+    loadBlockedProviders();
   }, []);
+
+  async function loadBlockedProviders() {
+    try {
+      const resp = await fetch(`${base}/api/settings/blocked-providers`);
+      const data = await resp.json() as { providers: string[] };
+      setBlockedProviders(data.providers ?? []);
+    } catch { /* ignore */ }
+  }
+
+  async function toggleProvider(key: string) {
+    const next = blockedProviders.includes(key)
+      ? blockedProviders.filter(p => p !== key)
+      : [...blockedProviders, key];
+    setBlockedProviders(next);
+  }
+
+  async function saveBlockedProviders() {
+    setSavingBlocked(true);
+    try {
+      const resp = await fetch(`${base}/api/settings/blocked-providers`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ providers: blockedProviders }),
+      });
+      const data = await resp.json() as { providers: string[] };
+      setBlockedProviders(data.providers ?? []);
+      toast({ title: "屏蔽配置已保存", description: blockedProviders.length > 0 ? `已屏蔽 ${blockedProviders.length} 个供应商` : "未屏蔽任何供应商" });
+    } catch {
+      toast({ title: "保存失败", variant: "destructive" });
+    } finally {
+      setSavingBlocked(false);
+    }
+  }
 
   async function loadConfig() {
     setLoading(true);
@@ -207,7 +274,7 @@ export default function Settings() {
                     max={60}
                     value={intervalMinutes}
                     onChange={e => setIntervalMinutes(Math.max(1, Math.min(60, parseInt(e.target.value) || 5)))}
-                    className="bg-input/50 w-24"
+                    className="bg-input/50 w-24 text-foreground"
                   />
                   <span className="text-sm text-muted-foreground">分钟一次（1–60 分钟）</span>
                 </div>
@@ -277,6 +344,91 @@ export default function Settings() {
             )}
           </div>
         )}
+      </div>
+
+      {/* Blocked Providers Card */}
+      <div className="rounded-lg border border-border/60 bg-card/60 shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border/40 bg-muted/20">
+          <div className="flex items-center gap-3">
+            <Ban size={18} className={blockedProviders.length > 0 ? "text-orange-400" : "text-muted-foreground"} />
+            <div>
+              <div className="font-semibold text-sm">屏蔽供应商</div>
+              <div className="text-xs text-muted-foreground">被屏蔽的供应商不会出现在模型列表中，调用时也会被拒绝</div>
+            </div>
+          </div>
+          {blockedProviders.length > 0 && (
+            <Badge variant="outline" className="text-xs border-orange-500/40 text-orange-400">
+              已屏蔽 {blockedProviders.length} 个
+            </Badge>
+          )}
+        </div>
+
+        <div className="px-6 py-5 space-y-5">
+          {/* Infrastructure providers */}
+          <div className="space-y-2">
+            <div className="text-xs font-medium text-foreground/70">Vercel 渠道基础设施商</div>
+            <p className="text-xs text-muted-foreground">
+              Vercel AI Gateway 对 Meta、Mistral 等开源模型会内部路由到这些基础设施商。屏蔽后，若响应来自该基础设施，代理会拒绝并返回错误。
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {ALL_PROVIDERS.filter(p => p.isInfra).map(p => {
+                const isBlocked = blockedProviders.includes(p.key);
+                return (
+                  <button
+                    key={p.key}
+                    onClick={() => toggleProvider(p.key)}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all",
+                      isBlocked
+                        ? "bg-red-500/15 border-red-500/40 text-red-400 hover:bg-red-500/25"
+                        : "bg-orange-500/10 border-orange-500/30 text-orange-400/80 hover:bg-orange-500/20 hover:text-orange-400"
+                    )}
+                  >
+                    {isBlocked && <X size={11} />}
+                    {p.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="border-t border-border/30" />
+
+          {/* Model providers */}
+          <div className="space-y-2">
+            <div className="text-xs font-medium text-foreground/70">模型供应商</div>
+            <p className="text-xs text-muted-foreground">
+              屏蔽后该供应商的所有模型不出现在列表中，调用时也会被拒绝。
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {ALL_PROVIDERS.filter(p => !p.isInfra).map(p => {
+                const isBlocked = blockedProviders.includes(p.key);
+                return (
+                  <button
+                    key={p.key}
+                    onClick={() => toggleProvider(p.key)}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all",
+                      isBlocked
+                        ? "bg-red-500/15 border-red-500/40 text-red-400 hover:bg-red-500/25"
+                        : "bg-muted/30 border-border/50 text-muted-foreground hover:bg-muted/60 hover:text-foreground"
+                    )}
+                  >
+                    {isBlocked && <X size={11} />}
+                    {p.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="pt-1">
+            <Button onClick={saveBlockedProviders} disabled={savingBlocked} className="gap-2">
+              {savingBlocked && <Loader2 size={14} className="animate-spin" />}
+              <span>{savingBlocked ? "保存中..." : "保存屏蔽配置"}</span>
+            </Button>
+          </div>
+        </div>
       </div>
 
       {/* Change Password Card */}
