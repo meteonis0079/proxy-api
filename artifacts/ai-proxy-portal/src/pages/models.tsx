@@ -150,6 +150,7 @@ const MODEL_CATALOG: ModelEntry[] = [
   { id: "moonshotai/kimi-k2-thinking", name: "Kimi K2 Thinking", provider: "moonshot", providerLabel: "Moonshot AI", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000006, completion: 0.0000025 }, features: ["reasoning"], description: "Kimi K2 深度推理版" },
   { id: "moonshotai/kimi-k2-thinking-turbo", name: "Kimi K2 Thinking Turbo", provider: "moonshot", providerLabel: "Moonshot AI", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000003, completion: 0.0000012 }, features: ["reasoning"], description: "Kimi K2 推理高速版" },
   { id: "moonshotai/kimi-k2.5", name: "Kimi K2.5", provider: "moonshot", providerLabel: "Moonshot AI", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000006, completion: 0.0000025 }, features: ["function-calling", "reasoning"], description: "Kimi K2.5 升级版" },
+  { id: "moonshotai/kimi-k2.6", name: "Kimi K2.6", provider: "moonshot", providerLabel: "Moonshot AI", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.00000095, completion: 0.000004 }, features: ["function-calling", "reasoning"], description: "Kimi K2.6 最新版" },
 
   // ── MiniMax ───────────────────────────────────────────────
   { id: "minimax/minimax-m2", name: "MiniMax M2", provider: "minimax", providerLabel: "MiniMax", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000003, completion: 0.0000009 }, features: ["function-calling"], description: "MiniMax 旗舰" },
