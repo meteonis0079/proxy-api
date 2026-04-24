@@ -114,6 +114,8 @@ const MODEL_CATALOG: ModelEntry[] = [
   { id: "deepseek/deepseek-v3.1", name: "DeepSeek V3.1", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.00000027, completion: 0.00000110 }, features: ["function-calling"], description: "DeepSeek V3 升级版" },
   { id: "deepseek/deepseek-v3.2", name: "DeepSeek V3.2", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.00000027, completion: 0.00000110 }, features: ["function-calling"], description: "DeepSeek V3 最新版" },
   { id: "deepseek/deepseek-v3.2-thinking", name: "DeepSeek V3.2 Thinking", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.00000027, completion: 0.00000110 }, features: ["reasoning"], description: "V3.2 推理增强版" },
+  { id: "deepseek/deepseek-v4-flash", name: "DeepSeek V4 Flash", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 1048576, pricing: { prompt: 0.00000014, completion: 0.00000028 }, features: ["function-calling"], description: "DeepSeek V4 高速版" },
+  { id: "deepseek/deepseek-v4-pro", name: "DeepSeek V4 Pro", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 1048576, pricing: { prompt: 0.00000174, completion: 0.00000348 }, features: ["function-calling", "reasoning"], description: "DeepSeek V4 旗舰版" },
 
   // ── Alibaba Qwen ──────────────────────────────────────────
   { id: "alibaba/qwen3-max", name: "Qwen3 Max", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000016, completion: 0.0000064 }, features: ["function-calling", "reasoning"], description: "阿里云 Qwen3 旗舰" },
