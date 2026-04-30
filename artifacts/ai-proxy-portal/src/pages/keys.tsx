@@ -60,7 +60,7 @@ interface CheckResult {
   ok: boolean;
   statusCode: number;
   latencyMs: number;
-  quotaHeaders: Record<string, string>;
+  credits: { balance: string; total_used: string } | null;
   error: unknown;
   localStats: {
     totalRequests: number;
@@ -152,6 +152,13 @@ export default function Keys() {
     refetchInterval: 60_000,
   });
 
+  // Vercel credits — persisted in localStorage, updated per-key after manual check
+  type CreditsEntry = { balance: string; total_used: string; checkedAt: string };
+  type CreditsMap = Record<number, CreditsEntry | null>;
+  const [creditsMap, setCreditsMap] = useState<CreditsMap | null>(() => {
+    try { const s = localStorage.getItem("vag_credits"); return s ? JSON.parse(s) : null; } catch { return null; }
+  });
+
   const form = useForm<z.infer<typeof createKeySchema>>({
     resolver: zodResolver(createKeySchema),
     defaultValues: { name: "", apiKey: "", provider: "vercel" },
@@ -217,6 +224,15 @@ export default function Keys() {
       setCheckResult(data);
       setCheckResultKeyName(name);
       setCheckingKeyId(id);
+      // Update only this key's credits from the check result
+      if (data.credits !== undefined) {
+        const entry = data.credits
+          ? { ...data.credits, checkedAt: new Date().toISOString() }
+          : null;
+        const newMap = { ...(creditsMap ?? {}), [id]: entry };
+        setCreditsMap(newMap);
+        localStorage.setItem("vag_credits", JSON.stringify(newMap));
+      }
     } catch {
       toast({ title: "检查失败", description: "无法连接到后端服务", variant: "destructive" });
     } finally {
@@ -341,33 +357,34 @@ export default function Keys() {
         <Table>
           <TableHeader className="bg-muted/50">
             <TableRow className="border-border/50 hover:bg-transparent">
-              <TableHead className="w-[160px]">名称</TableHead>
-              <TableHead>密钥预览</TableHead>
-              <TableHead>渠道</TableHead>
-              <TableHead>状态</TableHead>
-              <TableHead className="text-right">请求次数</TableHead>
-              <TableHead className="text-right">累计费用</TableHead>
-              <TableHead className="w-[160px]">
+              <TableHead className="w-[160px] text-foreground/70">名称</TableHead>
+              <TableHead className="text-foreground/70">密钥预览</TableHead>
+              <TableHead className="text-foreground/70">渠道</TableHead>
+              <TableHead className="text-foreground/70">状态</TableHead>
+              <TableHead className="text-right text-foreground/70">请求次数</TableHead>
+              <TableHead className="text-right text-foreground/70">累计费用</TableHead>
+              <TableHead className="text-foreground/70">Vercel 余额</TableHead>
+              <TableHead className="w-[160px] text-foreground/70">
                 <div className="flex items-center gap-1.5">
                   本月额度
                   <span className="text-muted-foreground/50 font-normal text-[10px]">/ $5</span>
                 </div>
               </TableHead>
-              <TableHead className="w-[130px] text-center">操作</TableHead>
+              <TableHead className="w-[130px] text-center text-foreground/70">操作</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {isLoading ? (
               Array.from({ length: 3 }).map((_, i) => (
                 <TableRow key={i}>
-                  {Array.from({ length: 8 }).map((_, j) => (
+                  {Array.from({ length: 9 }).map((_, j) => (
                     <TableCell key={j}><Skeleton className="h-4 w-full" /></TableCell>
                   ))}
                 </TableRow>
               ))
             ) : keys?.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={8} className="h-32 text-center text-muted-foreground border-dashed">
+                <TableCell colSpan={9} className="h-32 text-center text-muted-foreground border-dashed">
                   <div className="flex flex-col items-center justify-center space-y-2">
                     <KeyIcon size={24} className="text-muted-foreground/50" />
                     <span>暂无已注册的 API 密钥</span>
@@ -392,7 +409,7 @@ export default function Keys() {
                         <span className="truncate max-w-[110px] text-foreground font-medium">{key.name}</span>
                       </div>
                     </TableCell>
-                    <TableCell className="font-mono text-xs text-muted-foreground">
+                    <TableCell className="font-mono text-xs text-foreground/60">
                       •••• {key.keyPreview}
                     </TableCell>
                     <TableCell>
@@ -408,8 +425,32 @@ export default function Keys() {
                         {key.isEnabled ? "已启用" : "已禁用"}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-right font-mono text-sm">{key.totalRequests.toLocaleString()}</TableCell>
+                    <TableCell className="text-right font-mono text-sm text-foreground/80">{key.totalRequests.toLocaleString()}</TableCell>
                     <TableCell className="text-right font-mono text-sm text-primary/90">${key.estimatedCostUsd.toFixed(4)}</TableCell>
+                    {/* Vercel balance */}
+                    <TableCell>
+                      {prov !== "vercel" ? (
+                        <span className="text-xs text-muted-foreground/50">—</span>
+                      ) : isChecking ? (
+                        <Skeleton className="h-4 w-20" />
+                      ) : creditsMap === null || !(key.id in creditsMap) ? (
+                        <span className="text-xs text-muted-foreground/40">未检查</span>
+                      ) : creditsMap[key.id] ? (
+                        <div className="space-y-0.5">
+                          <div className="text-sm font-mono font-semibold text-green-400">
+                            ${parseFloat(creditsMap[key.id]!.balance).toFixed(4)}
+                          </div>
+                          <div className="text-[10px] text-muted-foreground/60 font-mono">
+                            已用 ${parseFloat(creditsMap[key.id]!.total_used).toFixed(4)}
+                          </div>
+                          <div className="text-[10px] text-muted-foreground/40 font-mono">
+                            {new Date(creditsMap[key.id]!.checkedAt).toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" })}
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="text-xs text-muted-foreground/40">—</span>
+                      )}
+                    </TableCell>
                     {/* Monthly usage */}
                     <TableCell>
                       <div className="flex items-center gap-1.5">
@@ -538,23 +579,25 @@ export default function Keys() {
                 </div>
               </div>
 
-              {Object.keys(checkResult.quotaHeaders).length > 0 && (
+              {checkResult.credits && (
                 <div>
-                  <div className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">服务商返回的限额信息</div>
-                  <div className="rounded-md border border-border/50 bg-muted/20 divide-y divide-border/30">
-                    {Object.entries(checkResult.quotaHeaders).map(([k, v]) => (
-                      <div key={k} className="flex items-center justify-between px-3 py-1.5 text-xs">
-                        <span className="font-mono text-muted-foreground">{k}</span>
-                        <span className="font-mono text-foreground">{v}</span>
+                  <div className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">Vercel 官方额度</div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="rounded-md border border-green-500/30 bg-green-500/5 px-3 py-2 text-center">
+                      <div className="text-lg font-bold font-mono text-green-400">
+                        ${parseFloat(checkResult.credits.balance).toFixed(4)}
                       </div>
-                    ))}
+                      <div className="text-xs text-muted-foreground mt-0.5">剩余额度</div>
+                    </div>
+                    <div className="rounded-md border border-border/50 bg-muted/30 px-3 py-2 text-center">
+                      <div className="text-lg font-bold font-mono">
+                        ${parseFloat(checkResult.credits.total_used).toFixed(4)}
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-0.5">已消费总计</div>
+                    </div>
                   </div>
                 </div>
               )}
-
-              <p className="text-xs text-muted-foreground/60 border-t border-border/30 pt-3">
-                注：Vercel AI Gateway 暂无公开余额查询 API，以上数据均为本门户追踪的估算值。
-              </p>
             </div>
           )}
 

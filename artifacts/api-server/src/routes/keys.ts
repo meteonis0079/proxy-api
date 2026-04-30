@@ -65,6 +65,29 @@ router.get("/keys/monthly-usage", async (_req, res): Promise<void> => {
   res.json(map);
 });
 
+// Batch fetch Vercel credits for all vercel-provider keys
+router.get("/keys/credits", async (_req, res): Promise<void> => {
+  const keys = await db.select().from(apiKeysTable).where(eq(apiKeysTable.provider, "vercel"));
+  const results = await Promise.allSettled(
+    keys.map(async (k) => {
+      const r = await fetch(`${PROVIDER_BASE_URLS.vercel}/credits`, {
+        headers: { Authorization: `Bearer ${k.apiKey}` },
+      });
+      if (!r.ok) return { id: k.id, balance: null, total_used: null };
+      const d = await r.json() as { balance: string; total_used: string };
+      return { id: k.id, balance: d.balance, total_used: d.total_used };
+    })
+  );
+  const map: Record<number, { balance: string; total_used: string } | null> = {};
+  for (const r of results) {
+    if (r.status === "fulfilled") {
+      const v = r.value;
+      map[v.id] = v.balance !== null ? { balance: v.balance!, total_used: v.total_used! } : null;
+    }
+  }
+  res.json(map);
+});
+
 // Reset monthly usage counter for a key
 router.post("/keys/:id/reset-monthly", async (req, res): Promise<void> => {
   const params = GetKeyParams.safeParse(req.params);
@@ -223,70 +246,68 @@ router.post("/keys/:id/check", async (req, res): Promise<void> => {
   const baseUrl = PROVIDER_BASE_URLS[key.provider] ?? PROVIDER_BASE_URLS.vercel;
   const start = Date.now();
 
+  const localStats = {
+    totalRequests: key.totalRequests,
+    totalTokens: key.totalTokens,
+    estimatedCostUsd: parseFloat(key.estimatedCostUsd),
+    lastUsedAt: key.lastUsedAt ? key.lastUsedAt.toISOString() : null,
+  };
+
   try {
-    const response = await fetch(`${baseUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${key.apiKey}`,
-      },
-      body: JSON.stringify({
-        model: key.provider === "vercel" ? "openai/gpt-4o-mini" : "openai/gpt-4o-mini",
-        messages: [{ role: "user", content: "hi" }],
-        max_tokens: 16,
-        stream: false,
-      }),
-    });
+    let ok: boolean;
+    let statusCode: number;
+    let latencyMs: number;
+    let errorBody: unknown = null;
+    let credits: { balance: string; total_used: string } | null = null;
 
-    const latencyMs = Date.now() - start;
-    const statusCode = response.status;
-    const contentType = response.headers.get("content-type") ?? "";
+    if (key.provider === "vercel") {
+      // Use /v1/credits — free endpoint that confirms key validity AND returns balance
+      const creditsResp = await fetch(`${baseUrl}/credits`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${key.apiKey}` },
+      });
+      latencyMs = Date.now() - start;
+      statusCode = creditsResp.status;
+      ok = creditsResp.status >= 200 && creditsResp.status < 300;
 
-    // Collect any rate-limit / quota headers
-    const quotaHeaders: Record<string, string> = {};
-    for (const [k, v] of response.headers.entries()) {
-      const lk = k.toLowerCase();
-      if (lk.includes("limit") || lk.includes("remaining") || lk.includes("quota") || lk.includes("credit") || lk.includes("balance") || lk.includes("usage")) {
-        quotaHeaders[k] = v;
+      if (ok) {
+        credits = await creditsResp.json() as { balance: string; total_used: string };
+      } else {
+        try { errorBody = await creditsResp.json(); } catch { errorBody = await creditsResp.text(); }
       }
-    }
-
-    let responseBody: unknown = null;
-    if (contentType.includes("application/json")) {
-      responseBody = await response.json();
     } else {
-      responseBody = await response.text();
+      // Non-Vercel: fall back to a small chat completion
+      const response = await fetch(`${baseUrl}/chat/completions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${key.apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "openai/gpt-4o-mini",
+          messages: [{ role: "user", content: "hi" }],
+          max_tokens: 16,
+          stream: false,
+        }),
+      });
+      latencyMs = Date.now() - start;
+      statusCode = response.status;
+      ok = statusCode >= 200 && statusCode < 300;
+      const contentType = response.headers.get("content-type") ?? "";
+      const body = contentType.includes("application/json") ? await response.json() : await response.text();
+      if (!ok) errorBody = body;
     }
 
-    const ok = statusCode >= 200 && statusCode < 300;
-
-    res.json({
-      ok,
-      statusCode,
-      latencyMs,
-      quotaHeaders,
-      error: ok ? null : responseBody,
-      localStats: {
-        totalRequests: key.totalRequests,
-        totalTokens: key.totalTokens,
-        estimatedCostUsd: parseFloat(key.estimatedCostUsd),
-        lastUsedAt: key.lastUsedAt ? key.lastUsedAt.toISOString() : null,
-      },
-    });
+    res.json({ ok, statusCode, latencyMs, credits, error: ok ? null : errorBody, localStats });
   } catch (err) {
     const latencyMs = Date.now() - start;
     res.json({
       ok: false,
       statusCode: 0,
       latencyMs,
-      quotaHeaders: {},
+      credits: null,
       error: err instanceof Error ? err.message : "连接失败",
-      localStats: {
-        totalRequests: key.totalRequests,
-        totalTokens: key.totalTokens,
-        estimatedCostUsd: parseFloat(key.estimatedCostUsd),
-        lastUsedAt: key.lastUsedAt ? key.lastUsedAt.toISOString() : null,
-      },
+      localStats,
     });
   }
 });
