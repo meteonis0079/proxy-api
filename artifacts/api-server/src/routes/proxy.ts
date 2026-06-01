@@ -111,6 +111,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
   { id: "anthropic/claude-opus-4.5", name: "Claude Opus 4.5", provider: "anthropic", providerLabel: "Anthropic", channel: "vercel", contextWindow: 200000, pricing: { prompt: 0.000015, completion: 0.000075 }, features: ["vision", "function-calling", "reasoning"], description: "最新旗舰 Claude 4.5 Opus，超强推理" },
   { id: "anthropic/claude-opus-4.6", name: "Claude Opus 4.6", provider: "anthropic", providerLabel: "Anthropic", channel: "vercel", contextWindow: 200000, pricing: { prompt: 0.000015, completion: 0.000075 }, features: ["vision", "function-calling", "reasoning"], description: "Claude 4.6 旗舰" },
   { id: "anthropic/claude-opus-4.7", name: "Claude Opus 4.7", provider: "anthropic", providerLabel: "Anthropic", channel: "vercel", contextWindow: 200000, pricing: { prompt: 0.000015, completion: 0.000075 }, features: ["vision", "function-calling", "reasoning"], description: "Claude 4.7 旗舰" },
+  { id: "anthropic/claude-opus-4.8", name: "Claude Opus 4.8", provider: "anthropic", providerLabel: "Anthropic", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.000005, completion: 0.000025 }, features: ["vision", "function-calling", "reasoning", "long-context"], description: "Claude 4.8 旗舰，百万上下文" },
 
   // ── Google (Vercel) ───────────────────────────────────────
   { id: "google/gemini-2.0-flash", name: "Gemini 2.0 Flash", provider: "google", providerLabel: "Google", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000001, completion: 0.0000004 }, features: ["vision", "function-calling", "long-context"], description: "新一代快速多模态" },
@@ -166,6 +167,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
   { id: "xai/grok-4-fast-non-reasoning", name: "Grok 4 Fast", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.000005, completion: 0.000025 }, features: ["function-calling"], description: "Grok 4 高速对话" },
   { id: "xai/grok-code-fast-1", name: "Grok Code Fast", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.000003, completion: 0.000015 }, features: ["function-calling"], description: "Grok 代码专精版" },
   { id: "xai/grok-4.3", name: "Grok 4.3", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.00000125, completion: 0.0000025 }, features: ["function-calling", "reasoning", "long-context"], description: "xAI 新一代旗舰 4.3" },
+  { id: "xai/grok-build-0.1", name: "Grok Build 0.1", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 256000, pricing: { prompt: 0.000001, completion: 0.000002 }, features: ["function-calling"], description: "xAI Grok 构建专用版" },
 
   // ── DeepSeek (Vercel) ─────────────────────────────────────
   { id: "deepseek/deepseek-r1", name: "DeepSeek R1", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 163840, pricing: { prompt: 0.0000008, completion: 0.0000032 }, features: ["reasoning"], description: "顶级开源推理，媲美 o1" },
@@ -192,6 +194,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
   { id: "alibaba/qwen3-vl-thinking", name: "Qwen3 VL Thinking", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000004, completion: 0.0000004 }, features: ["vision", "reasoning"], description: "Qwen3 视觉推理版" },
   { id: "alibaba/qwen3.5-flash", name: "Qwen3.5 Flash", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.00000005, completion: 0.0000002 }, features: ["function-calling"], description: "Qwen3.5 极速轻量版" },
   { id: "alibaba/qwen3.5-plus", name: "Qwen3.5 Plus", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000004, completion: 0.0000012 }, features: ["function-calling"], description: "Qwen3.5 旗舰版" },
+  { id: "alibaba/qwen3.7-max", name: "Qwen3.7 Max", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.00000125, completion: 0.00000375 }, features: ["function-calling", "reasoning", "long-context"], description: "Qwen3.7 旗舰，百万上下文" },
   { id: "alibaba/qwen3-embedding-8b", name: "Qwen3 Embedding 8B", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 32768, pricing: { prompt: 0.00000002 }, features: ["embedding"], description: "Qwen3 文本嵌入 8B" },
   { id: "alibaba/qwen3-embedding-4b", name: "Qwen3 Embedding 4B", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 32768, pricing: { prompt: 0.00000001 }, features: ["embedding"], description: "Qwen3 文本嵌入 4B" },
 
@@ -223,6 +226,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
   { id: "minimax/minimax-m2.5", name: "MiniMax M2.5", provider: "minimax", providerLabel: "MiniMax", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000003, completion: 0.0000009 }, features: ["function-calling"], description: "MiniMax M2.5 旗舰" },
   { id: "minimax/minimax-m2.5-highspeed", name: "MiniMax M2.5 HS", provider: "minimax", providerLabel: "MiniMax", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000003, completion: 0.0000009 }, features: ["function-calling"], description: "MiniMax M2.5 高速版" },
   { id: "minimax/minimax-m2.7", name: "MiniMax M2.7", provider: "minimax", providerLabel: "MiniMax", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000005, completion: 0.0000015 }, features: ["function-calling", "reasoning"], description: "MiniMax M2.7 旗舰" },
+  { id: "minimax/minimax-m3", name: "MiniMax M3", provider: "minimax", providerLabel: "MiniMax", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000003, completion: 0.0000012 }, features: ["function-calling", "long-context"], description: "MiniMax M3 旗舰，百万上下文" },
 
   // ── NVIDIA Nemotron (Vercel) ──────────────────────────────
   { id: "nvidia/nemotron-3-super-120b-a12b", name: "Nemotron 3 Super 120B", provider: "nvidia", providerLabel: "NVIDIA", channel: "vercel", contextWindow: 128000, pricing: { prompt: 0.000002, completion: 0.000006 }, features: ["function-calling", "reasoning"], description: "NVIDIA 超大 MoE 推理旗舰" },
@@ -267,6 +271,9 @@ export const MODEL_CATALOG: ModelEntry[] = [
   // ── Morph (Vercel) ────────────────────────────────────────
   { id: "morph/morph-v3-fast", name: "Morph V3 Fast", provider: "morph", providerLabel: "Morph", channel: "vercel", contextWindow: 128000, pricing: { prompt: 0.000000500, completion: 0.0000020 }, features: ["function-calling"], description: "Morph 代码编辑高速版" },
   { id: "morph/morph-v3-large", name: "Morph V3 Large", provider: "morph", providerLabel: "Morph", channel: "vercel", contextWindow: 128000, pricing: { prompt: 0.000002000, completion: 0.0000080 }, features: ["function-calling"], description: "Morph 代码编辑旗舰" },
+
+  // ── StepFun (Vercel) ──────────────────────────────────────
+  { id: "stepfun/step-3.7-flash", name: "Step 3.7 Flash", provider: "stepfun", providerLabel: "StepFun", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.0000002, completion: 0.00000115 }, features: ["function-calling"], description: "阶跃星辰 Step 3.7 高速版" },
 ];
 
 const MODEL_PRICING_MAP: Record<string, ModelPricing> = Object.fromEntries(
