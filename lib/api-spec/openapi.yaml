@@ -54,7 +54,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/KeyInput"
+              $ref: "#/components/schemas/CreateKeyBody"
       responses:
         "201":
           description: Key created
@@ -108,7 +108,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/KeyUpdate"
+              $ref: "#/components/schemas/UpdateKeyBody"
       responses:
         "200":
           description: Key updated
@@ -240,7 +240,7 @@ components:
         - createdAt
         - updatedAt
 
-    KeyInput:
+    CreateKeyBody:
       type: object
       properties:
         name:
@@ -253,7 +253,7 @@ components:
         - name
         - apiKey
 
-    KeyUpdate:
+    UpdateKeyBody:
       type: object
       properties:
         name:
