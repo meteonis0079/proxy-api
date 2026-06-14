@@ -1,0 +1,246 @@
+{"level":30,"time":1776591660107,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":3,"method":"GET","url":"/"},"res":{"statusCode":200},"responseTime":2,"msg":"request completed"}
+{"level":30,"time":1776591660360,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":5,"method":"GET","url":"/assets/index-Bn2LM6Z8.css"},"res":{"statusCode":200},"responseTime":4,"msg":"request completed"}
+{"level":30,"time":1776591660365,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":4,"method":"GET","url":"/assets/index-BgGYlmt9.js"},"res":{"statusCode":200},"responseTime":11,"msg":"request completed"}
+(node:68) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS requests insecure by disabling certificate verification.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"level":30,"time":1776591662487,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":6,"method":"GET","url":"/api/auth/verify"},"res":{"statusCode":304},"responseTime":1489,"msg":"request completed"}
+{"level":30,"time":1776591662806,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":9,"method":"GET","url":"/api/healthz"},"res":{"statusCode":304},"responseTime":2,"msg":"request completed"}
+{"level":30,"time":1776591664126,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":7,"method":"GET","url":"/api/usage/summary"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at processTicksAndRejections (node:internal/process/task_queues:89:21)\n    at runNextTicks (node:internal/process/task_queues:69:3)\n    at process.processImmediate (node:internal/timers:453:9)"},"responseTime":1374,"msg":"request errored"}
+{"level":30,"time":1776591665184,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":8,"method":"GET","url":"/api/keys/stats"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":2430,"msg":"request errored"}
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/usage.ts:54:16)
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:111:16)
+{"level":30,"time":1776591665890,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":10,"method":"GET","url":"/api/usage/summary"},"res":{"statusCode":null},"responseTime":510,"msg":"request aborted"}
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/usage.ts:54:16)
+{"level":30,"time":1776591667273,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":11,"method":"GET","url":"/api/settings/keepalive"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1358,"msg":"request errored"}
+Error: Failed query: select "key", "value", "updated_at" from "settings" where "settings"."key" = $1
+params: keepalive_url
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async getSetting2 (/opt/render/project/src/artifacts/api-server/src/routes/settings.ts:9:17)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/settings.ts:21:15)
+{"level":30,"time":1776591672335,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":13,"method":"GET","url":"/api/keys"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1354,"msg":"request errored"}
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys" order by "api_keys"."created_at"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:35:16)
+{"level":30,"time":1776591672349,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":12,"method":"GET","url":"/api/keys/monthly-usage"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1370,"msg":"request errored"}
+Error: Failed query: 
+    SELECT
+      ul.key_id,
+      COALESCE(SUM(ul.estimated_cost_usd::numeric), 0) AS monthly_cost_usd,
+      ak.monthly_reset_at
+    FROM usage_logs ul
+    JOIN api_keys ak ON ak.id = ul.key_id
+    WHERE ul.created_at >= GREATEST(
+      DATE_TRUNC('month', NOW() AT TIME ZONE 'UTC'),
+      COALESCE(ak.monthly_reset_at, '1970-01-01'::timestamptz)
+    )
+    GROUP BY ul.key_id, ak.monthly_reset_at
+  
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:44:16)
+{"level":30,"time":1776591674895,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":14,"method":"GET","url":"/api/keys"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1345,"msg":"request errored"}
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys" order by "api_keys"."created_at"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:35:16)
+{"level":30,"time":1776591674943,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":15,"method":"GET","url":"/api/keys/monthly-usage"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1375,"msg":"request errored"}
+Error: Failed query: 
+    SELECT
+      ul.key_id,
+      COALESCE(SUM(ul.estimated_cost_usd::numeric), 0) AS monthly_cost_usd,
+      ak.monthly_reset_at
+    FROM usage_logs ul
+    JOIN api_keys ak ON ak.id = ul.key_id
+    WHERE ul.created_at >= GREATEST(
+      DATE_TRUNC('month', NOW() AT TIME ZONE 'UTC'),
+      COALESCE(ak.monthly_reset_at, '1970-01-01'::timestamptz)
+    )
+    GROUP BY ul.key_id, ak.monthly_reset_at
+  
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:44:16)
+{"level":30,"time":1776591678794,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":17,"method":"GET","url":"/api/keys"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1477,"msg":"request errored"}
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys" order by "api_keys"."created_at"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:35:16)
+{"level":30,"time":1776591678961,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":16,"method":"GET","url":"/api/keys/monthly-usage"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1646,"msg":"request errored"}
+Error: Failed query: 
+    SELECT
+      ul.key_id,
+      COALESCE(SUM(ul.estimated_cost_usd::numeric), 0) AS monthly_cost_usd,
+      ak.monthly_reset_at
+    FROM usage_logs ul
+    JOIN api_keys ak ON ak.id = ul.key_id
+    WHERE ul.created_at >= GREATEST(
+      DATE_TRUNC('month', NOW() AT TIME ZONE 'UTC'),
+      COALESCE(ak.monthly_reset_at, '1970-01-01'::timestamptz)
+    )
+    GROUP BY ul.key_id, ak.monthly_reset_at
+  
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:44:16)
+{"level":30,"time":1776591684390,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":18,"method":"GET","url":"/api/keys"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1378,"msg":"request errored"}
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys" order by "api_keys"."created_at"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:35:16)
+{"level":30,"time":1776591684535,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":19,"method":"GET","url":"/api/keys/monthly-usage"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1347,"msg":"request errored"}
+Error: Failed query: 
+    SELECT
+      ul.key_id,
+      COALESCE(SUM(ul.estimated_cost_usd::numeric), 0) AS monthly_cost_usd,
+      ak.monthly_reset_at
+    FROM usage_logs ul
+    JOIN api_keys ak ON ak.id = ul.key_id
+    WHERE ul.created_at >= GREATEST(
+      DATE_TRUNC('month', NOW() AT TIME ZONE 'UTC'),
+      COALESCE(ak.monthly_reset_at, '1970-01-01'::timestamptz)
+    )
+    GROUP BY ul.key_id, ak.monthly_reset_at
+  
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:44:16)
+{"level":30,"time":1776591686111,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":20,"method":"POST","url":"/api/keys"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1358,"msg":"request errored"}
+Error: Failed query: insert into "api_keys" ("id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at") values (default, $1, $2, $3, $4, default, default, default, default, default, default, default, default) returning "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at"
+params: 455563,14555655555365555236555,6555,vercel
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:102:17)
+{"level":50,"time":1776591691713,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-85b75d855c-gv8cz","err":{"type":"_DrizzleQueryError","message":"Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url: password authentication failed for user \"avnadmin\"","stack":"Error: Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url\n    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)\ncaused by: error: password authentication failed for user \"avnadmin\"\n    at <anonymous> (/opt/render/project/src/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:161:13)\n    at async NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:71:12)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)","query":"select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1","params":["keepalive_url"]},"msg":"Keep-alive tick error"}
+{"level":50,"time":1776591706284,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","err":{"type":"_DrizzleQueryError","message":"Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url: relation \"settings\" does not exist","stack":"Error: Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url\n    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)\ncaused by: error: relation \"settings\" does not exist\n    at <anonymous> (/opt/render/project/src/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:161:13)\n    at async NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:71:12)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)","query":"select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1","params":["keepalive_url"]},"msg":"Keep-alive tick error"}
+{"level":30,"time":1776591763416,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":33,"method":"GET","url":"/api/usage/summary"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1348,"msg":"request errored"}
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/usage.ts:54:16)
+{"level":30,"time":1776591763444,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":32,"method":"GET","url":"/api/keys/stats"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1388,"msg":"request errored"}
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:111:16)
+{"level":50,"time":1776591766257,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","err":{"type":"_DrizzleQueryError","message":"Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url: relation \"settings\" does not exist","stack":"Error: Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url\n    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)\ncaused by: error: relation \"settings\" does not exist\n    at <anonymous> (/opt/render/project/src/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:161:13)\n    at async NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:71:12)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)","query":"select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1","params":["keepalive_url"]},"msg":"Keep-alive tick error"}
+{"level":30,"time":1776591769472,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":34,"method":"GET","url":"/api/healthz"},"res":{"statusCode":304},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1776591770706,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":35,"method":"GET","url":"/api/keys/monthly-usage"},"res":{"statusCode":null},"responseTime":1234,"msg":"request aborted"}
+{"level":30,"time":1776591770707,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":36,"method":"GET","url":"/api/keys"},"res":{"statusCode":null},"responseTime":1223,"msg":"request aborted"}
+{"level":30,"time":1776591770740,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":39,"method":"GET","url":"/api/healthz"},"res":{"statusCode":304},"responseTime":1,"msg":"request completed"}
+Error: Failed query: 
+    SELECT
+      ul.key_id,
+      COALESCE(SUM(ul.estimated_cost_usd::numeric), 0) AS monthly_cost_usd,
+      ak.monthly_reset_at
+    FROM usage_logs ul
+    JOIN api_keys ak ON ak.id = ul.key_id
+    WHERE ul.created_at >= GREATEST(
+      DATE_TRUNC('month', NOW() AT TIME ZONE 'UTC'),
+      COALESCE(ak.monthly_reset_at, '1970-01-01'::timestamptz)
+    )
+    GROUP BY ul.key_id, ak.monthly_reset_at
+  
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:44:16)
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys" order by "api_keys"."created_at"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:35:16)
+{"level":30,"time":1776591771382,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":38,"method":"GET","url":"/api/keys"},"res":{"statusCode":null},"responseTime":654,"msg":"request aborted"}
+{"level":30,"time":1776591771393,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":37,"method":"GET","url":"/api/keys/monthly-usage"},"res":{"statusCode":null},"responseTime":665,"msg":"request aborted"}
+{"level":30,"time":1776591771399,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":40,"method":"GET","url":"/api/healthz"},"res":{"statusCode":304},"responseTime":1,"msg":"request completed"}
+Error: Failed query: 
+    SELECT
+      ul.key_id,
+      COALESCE(SUM(ul.estimated_cost_usd::numeric), 0) AS monthly_cost_usd,
+      ak.monthly_reset_at
+    FROM usage_logs ul
+    JOIN api_keys ak ON ak.id = ul.key_id
+    WHERE ul.created_at >= GREATEST(
+      DATE_TRUNC('month', NOW() AT TIME ZONE 'UTC'),
+      COALESCE(ak.monthly_reset_at, '1970-01-01'::timestamptz)
+    )
+    GROUP BY ul.key_id, ak.monthly_reset_at
+  
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:44:16)
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys" order by "api_keys"."created_at"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:35:16)
+{"level":30,"time":1776591772765,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":42,"method":"GET","url":"/api/keys/monthly-usage"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1364,"msg":"request errored"}
+Error: Failed query: 
+    SELECT
+      ul.key_id,
+      COALESCE(SUM(ul.estimated_cost_usd::numeric), 0) AS monthly_cost_usd,
+      ak.monthly_reset_at
+    FROM usage_logs ul
+    JOIN api_keys ak ON ak.id = ul.key_id
+    WHERE ul.created_at >= GREATEST(
+      DATE_TRUNC('month', NOW() AT TIME ZONE 'UTC'),
+      COALESCE(ak.monthly_reset_at, '1970-01-01'::timestamptz)
+    )
+    GROUP BY ul.key_id, ak.monthly_reset_at
+  
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:44:16)
+{"level":30,"time":1776591772797,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":41,"method":"GET","url":"/api/keys"},"res":{"statusCode":500},"err":{"type":"Error","message":"failed with status code 500","stack":"Error: failed with status code 500\n    at onResFinished (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:115:39)\n    at ServerResponse.onResponseComplete (/opt/render/project/src/node_modules/.pnpm/pino-http@10.5.0/node_modules/pino-http/logger.js:178:14)\n    at ServerResponse.emit (node:events:531:35)\n    at onFinish (node:_http_outgoing:1082:10)\n    at callback (node:internal/streams/writable:766:21)\n    at afterWrite (node:internal/streams/writable:710:5)\n    at afterWriteTick (node:internal/streams/writable:696:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"},"responseTime":1398,"msg":"request errored"}
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys" order by "api_keys"."created_at"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:35:16)
+{"level":30,"time":1776591774140,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":43,"method":"GET","url":"/api/keys"},"res":{"statusCode":null},"responseTime":125,"msg":"request aborted"}
+Error: Failed query: select "id", "name", "api_key", "key_preview", "provider", "is_enabled", "total_requests", "total_tokens", "estimated_cost_usd", "last_used_at", "monthly_reset_at", "created_at", "updated_at" from "api_keys" order by "api_keys"."created_at"
+params: 
+    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)
+Menu
+    at async <anonymous> (/opt/render/project/src/artifacts/api-server/src/routes/keys.ts:35:16)

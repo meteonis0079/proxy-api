@@ -1,0 +1,50 @@
+{"level":50,"time":1776591511742,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-85b75d855c-gv8cz","err":{"type":"_DrizzleQueryError","message":"Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url: password authentication failed for user \"avnadmin\"","stack":"Error: Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url\n    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)\ncaused by: error: password authentication failed for user \"avnadmin\"\n    at <anonymous> (/opt/render/project/src/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:161:13)\n    at async NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:71:12)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)","query":"select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1","params":["keepalive_url"]},"msg":"Keep-alive tick error"}
+{"level":50,"time":1776591571739,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-85b75d855c-gv8cz","err":{"type":"_DrizzleQueryError","message":"Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url: password authentication failed for user \"avnadmin\"","stack":"Error: Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url\n    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)\ncaused by: error: password authentication failed for user \"avnadmin\"\n    at <anonymous> (/opt/render/project/src/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:161:13)\n    at async NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:71:12)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)","query":"select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1","params":["keepalive_url"]},"msg":"Keep-alive tick error"}
+==> Deploying...
+==> Setting WEB_CONCURRENCY=1 by default, based on available CPUs in the instance
+==> Running 'pnpm --filter @workspace/db run push; node --enable-source-maps artifacts/api-server/dist/index.mjs'
+{"level":50,"time":1776591631713,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-85b75d855c-gv8cz","err":{"type":"_DrizzleQueryError","message":"Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url: password authentication failed for user \"avnadmin\"","stack":"Error: Failed query: select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1\nparams: keepalive_url\n    at NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:73:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)\ncaused by: error: password authentication failed for user \"avnadmin\"\n    at <anonymous> (/opt/render/project/src/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:161:13)\n    at async NodePgPreparedQuery.queryWithCache (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/pg-core/session.ts:71:12)\n    at async <anonymous> (/opt/render/project/src/node_modules/.pnpm/drizzle-orm@0.45.1_@types+pg@8.18.0_pg@8.20.0/node_modules/src/node-postgres/session.ts:154:19)\n    at async getSetting (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:8:17)\n    at async Timeout.tickKeepalive (/opt/render/project/src/artifacts/api-server/src/lib/keepalive.ts:40:18)","query":"select \"key\", \"value\", \"updated_at\" from \"settings\" where \"settings\".\"key\" = $1","params":["keepalive_url"]},"msg":"Keep-alive tick error"}
+> @workspace/db@0.0.0 push /opt/render/project/src/lib/db
+> drizzle-kit push --config ./drizzle.config.ts
+Reading config file '/opt/render/project/src/lib/db/drizzle.config.ts'
+Using 'pg' driver for database querying
+[⣷] Pulling schema from database...
+[⣯] Pulling schema from database...
+[⣟] Pulling schema from database...
+[⡿] Pulling schema from database...
+error: no pg_hba.conf entry for host "74.220.48.29", user "avnadmin", database "defaultdb", no encryption
+    at /opt/render/project/src/node_modules/.pnpm/pg-pool@3.13.0_pg@8.20.0/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Object.query (/opt/render/project/src/node_modules/.pnpm/drizzle-kit@0.31.9/node_modules/drizzle-kit/bin.cjs:80623:26)
+    at async fromDatabase2 (/opt/render/project/src/node_modules/.pnpm/drizzle-kit@0.31.9/node_modules/drizzle-kit/bin.cjs:19276:25) {
+  length: 161,
+  severity: 'FATAL',
+  code: '28000',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'auth.c',
+  line: '541',
+  routine: 'ClientAuthentication'
+}
+{"level":30,"time":1776591644795,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","frontendDist":"/opt/render/project/src/artifacts/ai-proxy-portal/dist/public","msg":"Serving frontend static files"}
+{"level":30,"time":1776591644899,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","port":10000,"msg":"Server listening"}
+{"level":30,"time":1776591644899,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","msg":"Keep-alive scheduler started (checks every 60s)"}
+{"level":30,"time":1776591645238,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":1,"method":"HEAD","url":"/"},"res":{"statusCode":200},"responseTime":5,"msg":"request completed"}
+{"level":30,"time":1776591651024,"pid":68,"hostname":"srv-d7i6u5naqgkc739niarg-hibernate-f67c799f8-4bdmz","req":{"id":2,"method":"GET","url":"/"},"res":{"statusCode":200},"responseTime":4,"msg":"request completed"}
+Menu
+==> Your service is live 🎉
+==> 
+==> ///////////////////////////////////////////////////////////
+==> 
+==> Available at your primary URL https://proxy-api-i1ey.onrender.com
+==> 
+==> ///////////////////////////////////////////////////////////
