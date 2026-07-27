@@ -57,6 +57,9 @@ const MODEL_CATALOG: ModelEntry[] = [
   { id: "anthropic/claude-opus-4.6", name: "Claude Opus 4.6", provider: "anthropic", providerLabel: "Anthropic", channel: "vercel", contextWindow: 200000, pricing: { prompt: 0.000015, completion: 0.000075 }, features: ["vision", "function-calling", "reasoning"], description: "Claude 4.6 旗舰" },
   { id: "anthropic/claude-opus-4.7", name: "Claude Opus 4.7", provider: "anthropic", providerLabel: "Anthropic", channel: "vercel", contextWindow: 200000, pricing: { prompt: 0.000015, completion: 0.000075 }, features: ["vision", "function-calling", "reasoning"], description: "Claude 4.7 旗舰" },
   { id: "anthropic/claude-opus-4.8", name: "Claude Opus 4.8", provider: "anthropic", providerLabel: "Anthropic", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.000005, completion: 0.000025 }, features: ["vision", "function-calling", "reasoning"], description: "Claude Opus 4.8 旗舰" },
+  { id: "anthropic/claude-sonnet-5", name: "Claude Sonnet 5", provider: "anthropic", providerLabel: "Anthropic", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.000002, completion: 0.000010 }, features: ["vision", "function-calling", "reasoning"], description: "Claude 5 综合旗舰" },
+  { id: "anthropic/claude-opus-5", name: "Claude Opus 5", provider: "anthropic", providerLabel: "Anthropic", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.000005, completion: 0.000025 }, features: ["vision", "function-calling", "reasoning"], description: "Claude 5 顶级旗舰" },
+  { id: "anthropic/claude-opus-5-fast", name: "Claude Opus 5 Fast", provider: "anthropic", providerLabel: "Anthropic", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.000010, completion: 0.000050 }, features: ["vision", "function-calling", "reasoning"], description: "Claude Opus 5 高速版" },
 
   // ── Google ────────────────────────────────────────────────
   { id: "google/gemini-2.0-flash", name: "Gemini 2.0 Flash", provider: "google", providerLabel: "Google", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000001, completion: 0.0000004 }, features: ["vision", "function-calling", "long-context"], description: "新一代快速多模态" },
@@ -70,6 +73,8 @@ const MODEL_CATALOG: ModelEntry[] = [
   { id: "google/gemini-3.1-flash-lite-preview", name: "Gemini 3.1 Flash Lite Preview", provider: "google", providerLabel: "Google", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.000000075, completion: 0.0000003 }, features: ["vision", "long-context"], description: "Gemini 3.1 轻量预览版" },
   { id: "google/gemini-3.1-flash-lite", name: "Gemini 3.1 Flash Lite", provider: "google", providerLabel: "Google", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.00000025, completion: 0.0000015 }, features: ["vision", "function-calling", "long-context"], description: "Gemini 3.1 轻量正式版" },
   { id: "google/gemini-3.5-flash", name: "Gemini 3.5 Flash", provider: "google", providerLabel: "Google", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000015, completion: 0.000009 }, features: ["vision", "function-calling", "long-context"], description: "Gemini 3.5 快速版" },
+  { id: "google/gemini-3.5-flash-lite", name: "Gemini 3.5 Flash Lite", provider: "google", providerLabel: "Google", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000003, completion: 0.0000025 }, features: ["vision", "function-calling", "long-context"], description: "Gemini 3.5 轻量版" },
+  { id: "google/gemini-3.6-flash", name: "Gemini 3.6 Flash", provider: "google", providerLabel: "Google", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000015, completion: 0.0000075 }, features: ["vision", "function-calling", "long-context"], description: "Gemini 3.6 快速版" },
   { id: "google/gemini-3.1-pro-preview", name: "Gemini 3.1 Pro Preview", provider: "google", providerLabel: "Google", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.00000125, completion: 0.000010 }, features: ["vision", "function-calling", "reasoning", "long-context"], description: "Gemini 3.1 旗舰预览版" },
   { id: "google/gemma-4-26b-a4b-it", name: "Gemma 4 26B MoE", provider: "google", providerLabel: "Google", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000001, completion: 0.0000002 }, features: ["vision", "function-calling"], description: "Gemma 4 开源 MoE 多模态" },
   { id: "google/gemma-4-31b-it", name: "Gemma 4 31B", provider: "google", providerLabel: "Google", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000001, completion: 0.0000002 }, features: ["vision", "function-calling"], description: "Gemma 4 开源旗舰" },
@@ -113,6 +118,7 @@ const MODEL_CATALOG: ModelEntry[] = [
   { id: "xai/grok-code-fast-1", name: "Grok Code Fast", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.000003, completion: 0.000015 }, features: ["function-calling"], description: "Grok 代码专精版" },
   { id: "xai/grok-4.3", name: "Grok 4.3", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.00000125, completion: 0.0000025 }, features: ["function-calling", "reasoning", "long-context"], description: "xAI 新一代旗舰 4.3" },
   { id: "xai/grok-build-0.1", name: "Grok Build 0.1", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.000001, completion: 0.000002 }, features: ["function-calling"], description: "xAI 开发者轻量版" },
+  { id: "xai/grok-imagine-video-1.5", name: "Grok Imagine Video 1.5", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 0, pricing: { prompt: 0.000010, completion: 0.000080 }, features: ["vision"], description: "xAI 视频生成旗舰" },
 
   // ── DeepSeek ──────────────────────────────────────────────
   { id: "deepseek/deepseek-r1", name: "DeepSeek R1", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 163840, pricing: { prompt: 0.0000008, completion: 0.0000032 }, features: ["reasoning"], description: "顶级开源推理，媲美 o1" },
@@ -162,6 +168,9 @@ const MODEL_CATALOG: ModelEntry[] = [
   { id: "moonshotai/kimi-k2.5", name: "Kimi K2.5", provider: "moonshot", providerLabel: "Moonshot AI", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000006, completion: 0.0000025 }, features: ["function-calling", "reasoning"], description: "Kimi K2.5 升级版" },
   { id: "moonshotai/kimi-k2.6", name: "Kimi K2.6", provider: "moonshot", providerLabel: "Moonshot AI", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.00000095, completion: 0.000004 }, features: ["function-calling", "reasoning"], description: "Kimi K2.6 最新版" },
   { id: "moonshotai/kimi-k2.7-code", name: "Kimi K2.7 Code", provider: "moonshot", providerLabel: "Moonshot AI", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.00000095, completion: 0.000004 }, features: ["function-calling"], description: "Kimi K2.7 代码专精版" },
+  { id: "moonshotai/kimi-k2.7-highspeed", name: "Kimi K2.7 Highspeed", provider: "moonshot", providerLabel: "Moonshot AI", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.0000019, completion: 0.000008 }, features: ["function-calling", "reasoning"], description: "Kimi K2.7 高速版" },
+  { id: "moonshotai/kimi-k3", name: "Kimi K3", provider: "moonshot", providerLabel: "Moonshot AI", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.000003, completion: 0.000015 }, features: ["function-calling", "reasoning", "long-context"], description: "Kimi K3 旗舰版" },
+  { id: "moonshotai/kimi-k3-fast", name: "Kimi K3 Fast", provider: "moonshot", providerLabel: "Moonshot AI", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000045, completion: 0.0000225 }, features: ["function-calling", "reasoning", "long-context"], description: "Kimi K3 高速版" },
 
   // ── MiniMax ───────────────────────────────────────────────
   { id: "minimax/minimax-m2", name: "MiniMax M2", provider: "minimax", providerLabel: "MiniMax", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000003, completion: 0.0000009 }, features: ["function-calling"], description: "MiniMax 旗舰" },
@@ -183,6 +192,7 @@ const MODEL_CATALOG: ModelEntry[] = [
   // ── ByteDance Seed ────────────────────────────────────────
   { id: "bytedance/seed-1.6", name: "Seed 1.6", provider: "bytedance", providerLabel: "ByteDance", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000003, completion: 0.0000009 }, features: ["function-calling"], description: "字节跳动 Seed 1.6 旗舰" },
   { id: "bytedance/seed-1.8", name: "Seed 1.8", provider: "bytedance", providerLabel: "ByteDance", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000003, completion: 0.0000009 }, features: ["function-calling", "reasoning"], description: "字节跳动 Seed 1.8 旗舰" },
+  { id: "bytedance/seedream-5.0-pro", name: "SeedDream 5.0 Pro", provider: "bytedance", providerLabel: "ByteDance", channel: "vercel", contextWindow: 0, pricing: { prompt: 0.000000003, completion: 0.000040 }, features: ["vision"], description: "字节跳动图像生成旗舰" },
 
   // ── ZAI GLM ───────────────────────────────────────────────
   { id: "zai/glm-4.5", name: "GLM-4.5", provider: "zai", providerLabel: "ZAI / 智谱", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.000001, completion: 0.000003 }, features: ["function-calling"], description: "智谱 GLM-4.5 旗舰" },
@@ -192,6 +202,8 @@ const MODEL_CATALOG: ModelEntry[] = [
   { id: "zai/glm-4.7", name: "GLM-4.7", provider: "zai", providerLabel: "ZAI / 智谱", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.000002, completion: 0.000006 }, features: ["function-calling", "reasoning"], description: "智谱 GLM-4.7 旗舰推理" },
   { id: "zai/glm-5", name: "GLM-5", provider: "zai", providerLabel: "ZAI / 智谱", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.000002, completion: 0.000006 }, features: ["function-calling", "reasoning"], description: "智谱 GLM-5 旗舰" },
   { id: "zai/glm-5-turbo", name: "GLM-5 Turbo", provider: "zai", providerLabel: "ZAI / 智谱", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000005, completion: 0.0000015 }, features: ["function-calling"], description: "GLM-5 高速版" },
+  { id: "zai/glm-5.2", name: "GLM-5.2", provider: "zai", providerLabel: "ZAI / 智谱", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000009, completion: 0.00000284 }, features: ["function-calling", "reasoning", "long-context"], description: "智谱 GLM-5.2 旗舰" },
+  { id: "zai/glm-5.2-fast", name: "GLM-5.2 Fast", provider: "zai", providerLabel: "ZAI / 智谱", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000021, completion: 0.0000066 }, features: ["function-calling", "long-context"], description: "GLM-5.2 高速版" },
 
   // ── Arcee AI ──────────────────────────────────────────────
   { id: "arcee-ai/trinity-large-preview", name: "Trinity Large", provider: "arcee", providerLabel: "Arcee AI", channel: "vercel", contextWindow: 128000, pricing: { prompt: 0.000001, completion: 0.000003 }, features: ["function-calling"], description: "Arcee Trinity 大型旗舰" },
@@ -216,6 +228,19 @@ const MODEL_CATALOG: ModelEntry[] = [
   // ── Morph ─────────────────────────────────────────────────
   { id: "morph/morph-v3-fast", name: "Morph V3 Fast", provider: "morph", providerLabel: "Morph", channel: "vercel", contextWindow: 128000, pricing: { prompt: 0.000000500, completion: 0.0000020 }, features: ["function-calling"], description: "代码编辑高速版" },
   { id: "morph/morph-v3-large", name: "Morph V3 Large", provider: "morph", providerLabel: "Morph", channel: "vercel", contextWindow: 128000, pricing: { prompt: 0.000002000, completion: 0.0000080 }, features: ["function-calling"], description: "代码编辑旗舰" },
+
+  // ── Poolside ──────────────────────────────────────────────
+  { id: "poolside/laguna-s-2.1-free", name: "Laguna S 2.1 Free", provider: "poolside", providerLabel: "Poolside", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0, completion: 0 }, features: ["function-calling"], description: "Poolside 代码模型免费版" },
+  { id: "poolside/laguna-s-2.1", name: "Laguna S 2.1", provider: "poolside", providerLabel: "Poolside", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000001, completion: 0.0000002 }, features: ["function-calling", "long-context"], description: "Poolside 代码旗舰" },
+
+  // ── Inclusion AI ──────────────────────────────────────────
+  { id: "inclusionai/ling-3.0-flash-free", name: "Ling 3.0 Flash Free", provider: "inclusionai", providerLabel: "Inclusion AI", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0, completion: 0 }, features: ["function-calling"], description: "Ling 3.0 快速免费版" },
+
+  // ── Thinking Machines ─────────────────────────────────────
+  { id: "thinkingmachines/inkling", name: "Inkling", provider: "thinkingmachines", providerLabel: "Thinking Machines", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.000001, completion: 0.00000405 }, features: ["function-calling", "reasoning"], description: "Thinking Machines 推理旗舰" },
+
+  // ── Sakana AI ─────────────────────────────────────────────
+  { id: "sakana/fugu-ultra", name: "Fugu Ultra", provider: "sakana", providerLabel: "Sakana AI", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.000005, completion: 0.000030 }, features: ["function-calling", "reasoning", "long-context"], description: "Sakana Fugu 超大旗舰" },
 ];
 
 const CHANNELS = [
@@ -248,6 +273,10 @@ const PROVIDERS = [
   { id: "morph", label: "Morph" },
   { id: "prime-intellect", label: "Prime Intellect" },
   { id: "stepfun", label: "StepFun" },
+  { id: "poolside", label: "Poolside" },
+  { id: "inclusionai", label: "Inclusion AI" },
+  { id: "thinkingmachines", label: "Thinking Machines" },
+  { id: "sakana", label: "Sakana AI" },
 ];
 
 const PROVIDER_COLORS: Record<string, string> = {
@@ -274,6 +303,10 @@ const PROVIDER_COLORS: Record<string, string> = {
   morph: "bg-slate-500/10 text-slate-300 border-slate-500/20",
   "prime-intellect": "bg-lime-500/10 text-lime-400 border-lime-500/20",
   stepfun: "bg-cyan-600/10 text-cyan-300 border-cyan-600/20",
+  poolside: "bg-blue-700/10 text-blue-300 border-blue-700/20",
+  inclusionai: "bg-rose-500/10 text-rose-400 border-rose-500/20",
+  thinkingmachines: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+  sakana: "bg-pink-600/10 text-pink-300 border-pink-600/20",
 };
 
 const CHANNEL_COLORS: Record<string, string> = {
