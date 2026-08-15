@@ -144,6 +144,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
   { id: "meta/llama-3.2-1b", name: "Llama 3.2 1B", provider: "meta", providerLabel: "Meta", channel: "vercel", contextWindow: 128000, pricing: { prompt: 0.000000010, completion: 0.000000010 }, features: [], description: "最小 Llama 模型" },
   { id: "meta/llama-3.1-70b", name: "Llama 3.1 70B", provider: "meta", providerLabel: "Meta", channel: "vercel", contextWindow: 128000, pricing: { prompt: 0.00000059, completion: 0.00000079 }, features: ["function-calling"], description: "高性价比中型模型" },
   { id: "meta/llama-3.1-8b", name: "Llama 3.1 8B", provider: "meta", providerLabel: "Meta", channel: "vercel", contextWindow: 128000, pricing: { prompt: 0.00000018, completion: 0.00000018 }, features: [], description: "极低成本轻量模型" },
+  { id: "meta/muse-spark-1.2-contributor", name: "Muse Spark 1.2 Contributor", provider: "meta", providerLabel: "Meta", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000001, completion: 0.0000002 }, features: ["function-calling", "reasoning", "long-context"], description: "Muse Spark 1.2 贡献者版" },
 
   // ── Mistral (Vercel) ──────────────────────────────────────
   { id: "mistral/mistral-large-3", name: "Mistral Large 3", provider: "mistral", providerLabel: "Mistral", channel: "vercel", contextWindow: 128000, pricing: { prompt: 0.000002, completion: 0.000006 }, features: ["function-calling", "json-mode"], description: "Mistral 旗舰新版" },
@@ -174,6 +175,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
   { id: "xai/grok-4.3", name: "Grok 4.3", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.00000125, completion: 0.0000025 }, features: ["function-calling", "reasoning", "long-context"], description: "xAI 新一代旗舰 4.3" },
   { id: "xai/grok-build-0.1", name: "Grok Build 0.1", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.000001, completion: 0.000002 }, features: ["function-calling"], description: "xAI 开发者轻量版" },
   { id: "xai/grok-imagine-video-1.5", name: "Grok Imagine Video 1.5", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 0, pricing: { prompt: 0.000010, completion: 0.000080 }, features: ["vision"], description: "xAI 视频生成旗舰" },
+  { id: "xai/grok-4.6", name: "Grok 4.6", provider: "xai", providerLabel: "xAI", channel: "vercel", contextWindow: 500000, pricing: { prompt: 0.000002, completion: 0.000006 }, features: ["function-calling", "reasoning"], description: "xAI Grok 4.6 旗舰" },
 
   // ── DeepSeek (Vercel) ─────────────────────────────────────
   { id: "deepseek/deepseek-r1", name: "DeepSeek R1", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 163840, pricing: { prompt: 0.0000008, completion: 0.0000032 }, features: ["reasoning"], description: "顶级开源推理，媲美 o1" },
@@ -183,6 +185,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
   { id: "deepseek/deepseek-v3.2-thinking", name: "DeepSeek V3.2 Thinking", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.00000027, completion: 0.00000110 }, features: ["reasoning"], description: "V3.2 推理增强版" },
   { id: "deepseek/deepseek-v4-flash", name: "DeepSeek V4 Flash", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 1048576, pricing: { prompt: 0.00000014, completion: 0.00000028 }, features: ["function-calling"], description: "DeepSeek V4 高速版" },
   { id: "deepseek/deepseek-v4-pro", name: "DeepSeek V4 Pro", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 1048576, pricing: { prompt: 0.00000174, completion: 0.00000348 }, features: ["function-calling", "reasoning"], description: "DeepSeek V4 旗舰版" },
+  { id: "deepseek/deepseek-v4-pro-0813", name: "DeepSeek V4 Pro 0813", provider: "deepseek", providerLabel: "DeepSeek", channel: "vercel", contextWindow: 1048576, pricing: { prompt: 0.00000043, completion: 0.00000087 }, features: ["function-calling", "reasoning"], description: "DeepSeek V4 Pro 固定版本" },
 
   // ── Alibaba Qwen (Vercel) ─────────────────────────────────
   { id: "alibaba/qwen3-max", name: "Qwen3 Max", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000016, completion: 0.0000064 }, features: ["function-calling", "reasoning"], description: "阿里云 Qwen3 旗舰" },
@@ -202,6 +205,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
   { id: "alibaba/qwen3.5-plus", name: "Qwen3.5 Plus", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 131072, pricing: { prompt: 0.0000004, completion: 0.0000012 }, features: ["function-calling"], description: "Qwen3.5 旗舰版" },
   { id: "alibaba/qwen3.7-max", name: "Qwen3.7 Max", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.00000125, completion: 0.00000375 }, features: ["function-calling", "reasoning", "long-context"], description: "Qwen3.7 旗舰大模型" },
   { id: "alibaba/qwen3.7-plus", name: "Qwen3.7 Plus", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000004, completion: 0.0000016 }, features: ["function-calling", "long-context"], description: "Qwen3.7 均衡旗舰版" },
+  { id: "alibaba/qwen3.8-2.4t-a95b", name: "Qwen3.8 2.4T A95B", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.00000165, completion: 0.00000495 }, features: ["function-calling", "reasoning"], description: "Qwen3.8 超大 MoE 旗舰" },
   { id: "alibaba/qwen3-embedding-8b", name: "Qwen3 Embedding 8B", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 32768, pricing: { prompt: 0.00000002 }, features: ["embedding"], description: "Qwen3 文本嵌入 8B" },
   { id: "alibaba/qwen3-embedding-4b", name: "Qwen3 Embedding 4B", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 32768, pricing: { prompt: 0.00000001 }, features: ["embedding"], description: "Qwen3 文本嵌入 4B" },
 
@@ -296,6 +300,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
 
   // ── Inclusion AI (Vercel) ─────────────────────────────────
   { id: "inclusionai/ling-3.0-flash-free", name: "Ling 3.0 Flash Free", provider: "inclusionai", providerLabel: "Inclusion AI", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0, completion: 0 }, features: ["function-calling"], description: "Ling 3.0 快速免费版" },
+  { id: "inclusionai/ling-3.0-flash", name: "Ling 3.0 Flash", provider: "inclusionai", providerLabel: "Inclusion AI", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.00000006, completion: 0.00000018 }, features: ["function-calling"], description: "Ling 3.0 快速版" },
 
   // ── Thinking Machines (Vercel) ───────────────────────────
   { id: "thinkingmachines/inkling", name: "Inkling", provider: "thinkingmachines", providerLabel: "Thinking Machines", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.000001, completion: 0.00000405 }, features: ["function-calling", "reasoning"], description: "Thinking Machines 推理旗舰" },
