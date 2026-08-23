@@ -164,3 +164,33 @@ export const GetUsageSummaryResponse = zod.object({
   totalRequests: zod.number(),
   totalCostUsd: zod.number(),
 });
+
+/**
+ * OpenAI Responses API-compatible proxy endpoint
+ * @summary Create a model response
+ */
+export const CreateResponseBody = zod
+  .object({
+    model: zod.string(),
+    input: zod.union([
+      zod.string(),
+      zod.array(zod.record(zod.string(), zod.unknown())),
+    ]),
+    instructions: zod.string().optional(),
+    stream: zod.boolean().optional(),
+  })
+  .describe(
+    "OpenAI Responses API request. Additional provider-specific fields are forwarded unchanged.",
+  );
+
+export const CreateResponseResponse = zod
+  .object({
+    id: zod.string().optional(),
+    object: zod.string().optional(),
+    model: zod.string().optional(),
+    output: zod.array(zod.record(zod.string(), zod.unknown())).optional(),
+    usage: zod.record(zod.string(), zod.unknown()).optional(),
+  })
+  .describe(
+    "OpenAI Responses API response. Additional provider-specific fields are returned unchanged.",
+  );

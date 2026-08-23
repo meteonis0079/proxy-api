@@ -23,6 +23,8 @@ import type {
   HealthStatus,
   KeyStats,
   ListUsageParams,
+  ResponsesRequest,
+  ResponsesResponse,
   UpdateKeyBody,
   UsageLog,
   UsageSummary,
@@ -751,3 +753,90 @@ export function useGetUsageSummary<
 
   return { ...query, queryKey: queryOptions.queryKey };
 }
+
+/**
+ * OpenAI Responses API-compatible proxy endpoint
+ * @summary Create a model response
+ */
+export const getCreateResponseUrl = () => {
+  return `/api/v1/responses`;
+};
+
+export const createResponse = async (
+  responsesRequest: ResponsesRequest,
+  options?: RequestInit,
+): Promise<ResponsesResponse | string> => {
+  return customFetch<ResponsesResponse | string>(getCreateResponseUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(responsesRequest),
+  });
+};
+
+export const getCreateResponseMutationOptions = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createResponse>>,
+    TError,
+    { data: BodyType<ResponsesRequest> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof createResponse>>,
+  TError,
+  { data: BodyType<ResponsesRequest> },
+  TContext
+> => {
+  const mutationKey = ["createResponse"];
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation &&
+      "mutationKey" in options.mutation &&
+      options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined };
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof createResponse>>,
+    { data: BodyType<ResponsesRequest> }
+  > = (props) => {
+    const { data } = props ?? {};
+
+    return createResponse(data, requestOptions);
+  };
+
+  return { mutationFn, ...mutationOptions };
+};
+
+export type CreateResponseMutationResult = NonNullable<
+  Awaited<ReturnType<typeof createResponse>>
+>;
+export type CreateResponseMutationBody = BodyType<ResponsesRequest>;
+export type CreateResponseMutationError = ErrorType<ErrorResponse>;
+
+/**
+ * @summary Create a model response
+ */
+export const useCreateResponse = <
+  TError = ErrorType<ErrorResponse>,
+  TContext = unknown,
+>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof createResponse>>,
+    TError,
+    { data: BodyType<ResponsesRequest> },
+    TContext
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseMutationResult<
+  Awaited<ReturnType<typeof createResponse>>,
+  TError,
+  { data: BodyType<ResponsesRequest> },
+  TContext
+> => {
+  return useMutation(getCreateResponseMutationOptions(options));
+};

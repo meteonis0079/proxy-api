@@ -5,6 +5,35 @@
  * AI Proxy Portal API - Manages Vercel API keys and proxies AI model requests
  * OpenAPI spec version: 0.1.0
  */
+export type ResponsesRequestInput = string | { [key: string]: unknown }[];
+
+/**
+ * OpenAI Responses API request. Additional provider-specific fields are forwarded unchanged.
+ */
+export interface ResponsesRequest {
+  model: string;
+  input: ResponsesRequestInput;
+  instructions?: string;
+  stream?: boolean;
+  [key: string]: unknown;
+}
+
+export type ResponsesResponseOutputItem = { [key: string]: unknown };
+
+export type ResponsesResponseUsage = { [key: string]: unknown };
+
+/**
+ * OpenAI Responses API response. Additional provider-specific fields are returned unchanged.
+ */
+export interface ResponsesResponse {
+  id?: string;
+  object?: string;
+  model?: string;
+  output?: ResponsesResponseOutputItem[];
+  usage?: ResponsesResponseUsage;
+  [key: string]: unknown;
+}
+
 export interface HealthStatus {
   status: string;
 }

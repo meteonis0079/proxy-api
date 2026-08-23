@@ -206,6 +206,10 @@ export const MODEL_CATALOG: ModelEntry[] = [
   { id: "alibaba/qwen3.7-max", name: "Qwen3.7 Max", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.00000125, completion: 0.00000375 }, features: ["function-calling", "reasoning", "long-context"], description: "Qwen3.7 旗舰大模型" },
   { id: "alibaba/qwen3.7-plus", name: "Qwen3.7 Plus", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000004, completion: 0.0000016 }, features: ["function-calling", "long-context"], description: "Qwen3.7 均衡旗舰版" },
   { id: "alibaba/qwen3.8-2.4t-a95b", name: "Qwen3.8 2.4T A95B", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.00000165, completion: 0.00000495 }, features: ["function-calling", "reasoning"], description: "Qwen3.8 超大 MoE 旗舰" },
+  { id: "alibaba/qwen3.7-flash", name: "Qwen3.7 Flash", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 991000, pricing: { prompt: 0.00000003, completion: 0.00000013 }, features: ["function-calling", "reasoning"], description: "Qwen3.7 高速版" },
+  { id: "alibaba/qwen3.6-27b", name: "Qwen3.6 27B", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.0000006, completion: 0.0000036 }, features: ["function-calling", "reasoning"], description: "Qwen3.6 27B" },
+  { id: "alibaba/qwen3.6-max-preview", name: "Qwen3.6 Max Preview", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 240000, pricing: { prompt: 0.0000013, completion: 0.0000078 }, features: ["function-calling", "reasoning"], description: "Qwen3.6 Max 预览版" },
+  { id: "alibaba/qwen3.6-plus", name: "Qwen3.6 Plus", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000005, completion: 0.000003 }, features: ["function-calling", "reasoning", "long-context"], description: "Qwen3.6 均衡旗舰版" },
   { id: "alibaba/qwen3-embedding-8b", name: "Qwen3 Embedding 8B", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 32768, pricing: { prompt: 0.00000002 }, features: ["embedding"], description: "Qwen3 文本嵌入 8B" },
   { id: "alibaba/qwen3-embedding-4b", name: "Qwen3 Embedding 4B", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 32768, pricing: { prompt: 0.00000001 }, features: ["embedding"], description: "Qwen3 文本嵌入 4B" },
 
@@ -320,6 +324,26 @@ function estimateCost(model: string, promptTokens: number, completionTokens: num
 
 function getProviderBaseUrl(provider: string): string {
   return PROVIDER_BASE_URLS[provider] ?? PROVIDER_BASE_URLS.vercel;
+}
+
+type ResponsesUsage = {
+  input_tokens?: number;
+  output_tokens?: number;
+  total_tokens?: number;
+  prompt_tokens?: number;
+  completion_tokens?: number;
+};
+
+function getResponsesUsage(value: unknown): { promptTokens: number; completionTokens: number; totalTokens: number } {
+  const payload = value as {
+    usage?: ResponsesUsage;
+    response?: { usage?: ResponsesUsage };
+  } | null;
+  const usage = payload?.usage ?? payload?.response?.usage;
+  const promptTokens = usage?.input_tokens ?? usage?.prompt_tokens ?? 0;
+  const completionTokens = usage?.output_tokens ?? usage?.completion_tokens ?? 0;
+  const totalTokens = usage?.total_tokens ?? (promptTokens + completionTokens);
+  return { promptTokens, completionTokens, totalTokens };
 }
 
 // ── Embeddings proxy ────────────────────────────────────────────────────────
@@ -576,6 +600,172 @@ router.post("/v1/chat/completions", requireProxyApiKey, async (req, res): Promis
     }).catch(() => {});
     if (!res.headersSent) {
       res.status(500).json({ error: "Proxy request failed" });
+    }
+  }
+});
+
+// ── Responses API proxy ──────────────────────────────────────────────────────
+router.post("/v1/responses", requireProxyApiKey, async (req, res): Promise<void> => {
+  const start = Date.now();
+  const model = req.body?.model ?? "openai/gpt-4o-mini";
+
+  const blocked = await getBlockedProviders();
+  const blockedLower = blocked.map(b => b.toLowerCase());
+  const catalogEntry = MODEL_CATALOG.find(m => m.id === model);
+  if (catalogEntry && (
+    blockedLower.includes(catalogEntry.provider.toLowerCase()) ||
+    blockedLower.includes(catalogEntry.providerLabel.toLowerCase())
+  )) {
+    res.status(403).json({
+      error: {
+        message: `模型 "${model}" 的供应商 "${catalogEntry.providerLabel}" 已被屏蔽`,
+        type: "invalid_request_error",
+        code: "provider_blocked",
+      },
+    });
+    return;
+  }
+
+  const key = await getNextKey();
+  if (!key) {
+    res.status(503).json({ error: "No enabled API keys available" });
+    return;
+  }
+
+  const baseUrl = getProviderBaseUrl(key.provider);
+  const INFRA_PROVIDERS = ["deepinfra", "together", "fireworks"];
+  const blockedInfra = blockedLower.filter(b => INFRA_PROVIDERS.includes(b));
+  const extraHeaders: Record<string, string> = {};
+  if (blockedInfra.length > 0) {
+    extraHeaders["x-vercel-ai-skip-providers"] = blockedInfra.join(",");
+    extraHeaders["x-ai-skip-providers"] = blockedInfra.join(",");
+  }
+
+  try {
+    const response = await fetch(`${baseUrl}/responses`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${key.apiKey}`,
+        ...extraHeaders,
+      },
+      body: JSON.stringify(req.body),
+    });
+
+    const statusCode = response.status;
+    const contentType = response.headers.get("content-type") ?? "";
+
+    if (blockedInfra.length > 0) {
+      const usedProvider = (
+        response.headers.get("x-vercel-ai-gateway-provider") ??
+        response.headers.get("x-ai-provider") ??
+        response.headers.get("x-provider") ??
+        ""
+      ).toLowerCase();
+      if (usedProvider && blockedInfra.some(b => usedProvider.includes(b))) {
+        res.status(403).json({
+          error: {
+            message: `请求被代理拒绝：Vercel 将此次调用路由到了已屏蔽的基础设施商 "${usedProvider}"`,
+            type: "invalid_request_error",
+            code: "infra_provider_blocked",
+          },
+        });
+        return;
+      }
+    }
+
+    if (contentType.includes("text/event-stream")) {
+      res.setHeader("Content-Type", "text/event-stream");
+      res.setHeader("Cache-Control", "no-cache");
+      res.setHeader("Connection", "keep-alive");
+      res.setHeader("X-Accel-Buffering", "no");
+      res.status(statusCode);
+
+      let promptTokens = 0;
+      let completionTokens = 0;
+      let totalTokens = 0;
+      let lineBuffer = "";
+      const reader = response.body?.getReader();
+
+      if (reader) {
+        const decoder = new TextDecoder();
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            const chunk = decoder.decode(value, { stream: true });
+            res.write(chunk);
+            lineBuffer += chunk;
+            const lines = lineBuffer.split("\n");
+            lineBuffer = lines.pop() ?? "";
+            for (const line of lines) {
+              if (!line.startsWith("data: ") || line === "data: [DONE]") continue;
+              try {
+                const usage = getResponsesUsage(JSON.parse(line.slice(6)));
+                promptTokens = usage.promptTokens || promptTokens;
+                completionTokens = usage.completionTokens || completionTokens;
+                totalTokens = usage.totalTokens || totalTokens;
+              } catch { /* Ignore non-JSON SSE events. */ }
+            }
+          }
+        } finally {
+          reader.releaseLock();
+        }
+      }
+      res.end();
+
+      const durationMs = Date.now() - start;
+      const estimatedCostUsd = estimateCost(model, promptTokens, completionTokens);
+      await db.insert(usageLogsTable).values({
+        keyId: key.id, model, promptTokens, completionTokens, totalTokens,
+        estimatedCostUsd: estimatedCostUsd.toString(), statusCode, durationMs,
+      }).catch(() => {});
+      if (statusCode >= 200 && statusCode < 300) {
+        await db.update(apiKeysTable).set({
+          totalRequests: sql`${apiKeysTable.totalRequests} + 1`,
+          totalTokens: sql`${apiKeysTable.totalTokens} + ${totalTokens}`,
+          estimatedCostUsd: sql`${apiKeysTable.estimatedCostUsd} + ${estimatedCostUsd}`,
+          lastUsedAt: new Date(),
+        }).where(eq(apiKeysTable.id, key.id)).catch(() => {});
+      }
+      return;
+    }
+
+    if (contentType.includes("application/json")) {
+      const data = await response.json() as { usage?: ResponsesUsage; response?: { usage?: ResponsesUsage }; [key: string]: unknown };
+      const usage = getResponsesUsage(data);
+      const durationMs = Date.now() - start;
+      const estimatedCostUsd = estimateCost(model, usage.promptTokens, usage.completionTokens);
+      await db.insert(usageLogsTable).values({
+        keyId: key.id, model, promptTokens: usage.promptTokens, completionTokens: usage.completionTokens,
+        totalTokens: usage.totalTokens, estimatedCostUsd: estimatedCostUsd.toString(), statusCode, durationMs,
+      }).catch(() => {});
+      if (statusCode >= 200 && statusCode < 300) {
+        await db.update(apiKeysTable).set({
+          totalRequests: sql`${apiKeysTable.totalRequests} + 1`,
+          totalTokens: sql`${apiKeysTable.totalTokens} + ${usage.totalTokens}`,
+          estimatedCostUsd: sql`${apiKeysTable.estimatedCostUsd} + ${estimatedCostUsd}`,
+          lastUsedAt: new Date(),
+        }).where(eq(apiKeysTable.id, key.id)).catch(() => {});
+      }
+      res.status(statusCode).json(data);
+      return;
+    }
+
+    const text = await response.text();
+    await db.insert(usageLogsTable).values({
+      keyId: key.id, model, promptTokens: 0, completionTokens: 0, totalTokens: 0,
+      estimatedCostUsd: "0", statusCode, durationMs: Date.now() - start,
+    }).catch(() => {});
+    res.status(statusCode).send(text);
+  } catch (err) {
+    logger.error({ err }, "Responses proxy request failed");
+    await db.insert(usageLogsTable).values({
+      keyId: key.id, model, promptTokens: 0, completionTokens: 0, totalTokens: 0,
+      estimatedCostUsd: "0", statusCode: 500, durationMs: Date.now() - start,
+    }).catch(() => {});
+    if (!res.headersSent) {
+      res.status(500).json({ error: "Responses proxy request failed" });
     }
   }
 });

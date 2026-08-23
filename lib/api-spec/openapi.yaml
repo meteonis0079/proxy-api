@@ -194,8 +194,97 @@ paths:
               schema:
                 $ref: "#/components/schemas/UsageSummary"
 
+  /v1/responses:
+    post:
+      operationId: createResponse
+      tags: [proxy]
+      summary: Create a model response
+      description: OpenAI Responses API-compatible proxy endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResponsesRequest"
+      responses:
+        "200":
+          description: A model response or a server-sent event stream when stream is true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponsesResponse"
+            text/event-stream:
+              schema:
+                type: string
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Invalid or missing proxy API key
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Model provider is blocked
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "503":
+          description: No enabled API keys are available
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
 components:
   schemas:
+    ResponsesRequest:
+      type: object
+      description: OpenAI Responses API request. Additional provider-specific fields are forwarded unchanged.
+      properties:
+        model:
+          type: string
+        input:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: object
+                additionalProperties: true
+        instructions:
+          type: string
+        stream:
+          type: boolean
+      required:
+        - model
+        - input
+      additionalProperties: true
+
+    ResponsesResponse:
+      type: object
+      description: OpenAI Responses API response. Additional provider-specific fields are returned unchanged.
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        model:
+          type: string
+        output:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        usage:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+
     HealthStatus:
       type: object
       properties:
