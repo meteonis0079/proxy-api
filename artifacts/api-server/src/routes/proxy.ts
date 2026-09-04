@@ -448,7 +448,7 @@ router.post("/v1/chat/completions", requireProxyApiKey, async (req, res): Promis
   const baseUrl = getProviderBaseUrl(key.provider);
 
   // Build infra-skip headers for Vercel gateway
-  const INFRA_PROVIDERS = ["baseten", "novita", "gmicloud", "deepinfra", "runinfra", "wafer", "modal", "together", "togetherai", "morph", "parasail", "friendli", "digitalocean", "fireworks", "relace", "runware", "particle"];
+  const INFRA_PROVIDERS = ["deepinfra", "together", "fireworks"];
   const blockedInfra = blockedLower.filter(b => INFRA_PROVIDERS.includes(b));
   const extraHeaders: Record<string, string> = {};
   if (blockedInfra.length > 0) {
@@ -642,7 +642,7 @@ router.post("/v1/responses", requireProxyApiKey, async (req, res): Promise<void>
   }
 
   const baseUrl = getProviderBaseUrl(key.provider);
-  const INFRA_PROVIDERS = ["baseten", "novita", "gmicloud", "deepinfra", "runinfra", "wafer", "modal", "together", "togetherai", "morph", "parasail", "friendli", "digitalocean", "fireworks", "relace", "runware", "particle"];
+  const INFRA_PROVIDERS = ["deepinfra", "together", "fireworks"];
   const blockedInfra = blockedLower.filter(b => INFRA_PROVIDERS.includes(b));
   const extraHeaders: Record<string, string> = {};
   if (blockedInfra.length > 0) {

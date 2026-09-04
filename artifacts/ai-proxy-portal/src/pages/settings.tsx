@@ -28,7 +28,8 @@ const ALL_PROVIDERS = [
   { key: "relace", label: "Relace", isInfra: true },
   { key: "runware", label: "Runware", isInfra: true },
   { key: "particle", label: "Particle", isInfra: true },
-  // ── 模型供应商
+
+  // ── Model providers
   { key: "openai", label: "OpenAI", isInfra: false },
   { key: "anthropic", label: "Anthropic", isInfra: false },
   { key: "google", label: "Google", isInfra: false },
