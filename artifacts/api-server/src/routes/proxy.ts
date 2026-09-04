@@ -207,6 +207,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
   { id: "alibaba/qwen3.7-plus", name: "Qwen3.7 Plus", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000004, completion: 0.0000016 }, features: ["function-calling", "long-context"], description: "Qwen3.7 均衡旗舰版" },
   { id: "alibaba/qwen3.8-2.4t-a95b", name: "Qwen3.8 2.4T A95B", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.00000165, completion: 0.00000495 }, features: ["function-calling", "reasoning"], description: "Qwen3.8 超大 MoE 旗舰" },
   { id: "alibaba/qwen3.8-flash", name: "Qwen3.8 Flash", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 991000, pricing: { prompt: 0.00000016, completion: 0.00000047 }, features: ["function-calling", "long-context"], description: "Qwen3.8 高速版" },
+  { id: "alibaba/qwen3.8-max-0902", name: "Qwen3.8 Max 0902", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 991000, pricing: { prompt: 0.000002, completion: 0.000006 }, features: ["function-calling", "long-context"], description: "Qwen3.8 Max 0902 快照" },
   { id: "alibaba/qwen3.7-flash", name: "Qwen3.7 Flash", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 991000, pricing: { prompt: 0.00000003, completion: 0.00000013 }, features: ["function-calling", "reasoning"], description: "Qwen3.7 高速版" },
   { id: "alibaba/qwen3.6-27b", name: "Qwen3.6 27B", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 262144, pricing: { prompt: 0.0000006, completion: 0.0000036 }, features: ["function-calling", "reasoning"], description: "Qwen3.6 27B" },
   { id: "alibaba/qwen3.6-max-preview", name: "Qwen3.6 Max Preview", provider: "alibaba", providerLabel: "Alibaba", channel: "vercel", contextWindow: 240000, pricing: { prompt: 0.0000013, completion: 0.0000078 }, features: ["function-calling", "reasoning"], description: "Qwen3.6 Max 预览版" },
@@ -280,6 +281,7 @@ export const MODEL_CATALOG: ModelEntry[] = [
   { id: "zai/glm-5.2", name: "GLM-5.2", provider: "zai", providerLabel: "ZAI", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000009, completion: 0.00000284 }, features: ["function-calling", "reasoning", "long-context"], description: "智谱 GLM-5.2 旗舰" },
   { id: "zai/glm-5.2-fast", name: "GLM-5.2 Fast", provider: "zai", providerLabel: "ZAI", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000021, completion: 0.0000066 }, features: ["function-calling", "long-context"], description: "GLM-5.2 高速版" },
   { id: "zai/glm-5.3-flash", name: "GLM-5.3 Flash", provider: "zai", providerLabel: "ZAI", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.00000008, completion: 0.00000025 }, features: ["function-calling", "vision", "long-context"], description: "智谱 GLM-5.3 高速版" },
+  { id: "zai/glm-5.3-promo-50", name: "GLM-5.3 Promo 50% Off", provider: "zai", providerLabel: "ZAI", channel: "vercel", contextWindow: 1000000, pricing: { prompt: 0.0000007, completion: 0.0000022 }, features: ["function-calling", "reasoning", "long-context"], description: "GLM-5.3 限时五折" },
 
   // ── Inception Mercury (Vercel) ────────────────────────────
   { id: "inception/mercury-2", name: "Mercury 2", provider: "inception", providerLabel: "Inception", channel: "vercel", contextWindow: 128000, pricing: { prompt: 0.000000600, completion: 0.0000024 }, features: ["function-calling"], description: "Inception Mercury 扩散语言模型" },
@@ -446,7 +448,7 @@ router.post("/v1/chat/completions", requireProxyApiKey, async (req, res): Promis
   const baseUrl = getProviderBaseUrl(key.provider);
 
   // Build infra-skip headers for Vercel gateway
-  const INFRA_PROVIDERS = ["deepinfra", "together", "fireworks"];
+  const INFRA_PROVIDERS = ["baseten", "novita", "gmicloud", "deepinfra", "runinfra", "wafer", "modal", "together", "togetherai", "morph", "parasail", "friendli", "digitalocean", "fireworks", "relace", "runware", "particle"];
   const blockedInfra = blockedLower.filter(b => INFRA_PROVIDERS.includes(b));
   const extraHeaders: Record<string, string> = {};
   if (blockedInfra.length > 0) {
@@ -640,7 +642,7 @@ router.post("/v1/responses", requireProxyApiKey, async (req, res): Promise<void>
   }
 
   const baseUrl = getProviderBaseUrl(key.provider);
-  const INFRA_PROVIDERS = ["deepinfra", "together", "fireworks"];
+  const INFRA_PROVIDERS = ["baseten", "novita", "gmicloud", "deepinfra", "runinfra", "wafer", "modal", "together", "togetherai", "morph", "parasail", "friendli", "digitalocean", "fireworks", "relace", "runware", "particle"];
   const blockedInfra = blockedLower.filter(b => INFRA_PROVIDERS.includes(b));
   const extraHeaders: Record<string, string> = {};
   if (blockedInfra.length > 0) {

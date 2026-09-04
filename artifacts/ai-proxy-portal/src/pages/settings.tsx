@@ -12,9 +12,22 @@ import { cn } from "@/lib/utils";
 
 const ALL_PROVIDERS = [
   // ── Vercel 渠道基础设施（不是模型供应商，而是 Vercel 内部路由的基础设施商）
+  { key: "baseten", label: "Baseten", isInfra: true },
+  { key: "novita", label: "Novita AI", isInfra: true },
+  { key: "gmicloud", label: "GMICloud", isInfra: true },
   { key: "deepinfra", label: "DeepInfra", isInfra: true },
+  { key: "runinfra", label: "RunInfra", isInfra: true },
+  { key: "wafer", label: "Wafer", isInfra: true },
+  { key: "modal", label: "Modal", isInfra: true },
   { key: "together", label: "Together AI", isInfra: true },
+  { key: "morph", label: "Morph", isInfra: true },
+  { key: "parasail", label: "Parasail", isInfra: true },
+  { key: "friendli", label: "FriendliAI", isInfra: true },
+  { key: "digitalocean", label: "DigitalOcean", isInfra: true },
   { key: "fireworks", label: "Fireworks AI", isInfra: true },
+  { key: "relace", label: "Relace", isInfra: true },
+  { key: "runware", label: "Runware", isInfra: true },
+  { key: "particle", label: "Particle", isInfra: true },
   // ── 模型供应商
   { key: "openai", label: "OpenAI", isInfra: false },
   { key: "anthropic", label: "Anthropic", isInfra: false },
@@ -37,7 +50,6 @@ const ALL_PROVIDERS = [
   { key: "prime-intellect", label: "Prime Intellect", isInfra: false },
   { key: "xiaomi", label: "Xiaomi", isInfra: false },
   { key: "meituan", label: "Meituan", isInfra: false },
-  { key: "morph", label: "Morph", isInfra: false },
 ];
 
 interface LastPing {
